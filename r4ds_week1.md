@@ -4,8 +4,6 @@ author: "Pierrette Lo"
 date: "4/7/2020"
 output: 
   html_document:
-    toc: true
-    toc_float: true
     keep_md: true
 ---
 
@@ -62,7 +60,7 @@ library(tidyverse)
 ```
 
 ```
-## -- Attaching packages ---------
+## -- Attaching packages -- tidyverse 1.3.0 --
 ```
 
 ```
@@ -93,7 +91,7 @@ library(tidyverse)
 ```
 
 ```
-## -- Conflicts ------------------
+## -- Conflicts ----- tidyverse_conflicts() --
 ## x dplyr::filter() masks stats::filter()
 ## x dplyr::lag()    masks stats::lag()
 ```
