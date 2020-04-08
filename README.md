@@ -15,7 +15,7 @@ Welcome to our *R for Data Science* Study Group!
 **Week 1** (2020-04-10):
 
 * Read *Welcome* through *Section 3.2 (First Steps)*
-* Pierrette's notes are [here](https://github.com/ohsu-heme/r4ds_study_group/blob/master/r4ds_week1.html)
+* Pierrette's notes are [here](https://github.com/ohsu-heme/r4ds_study_group/blob/master/r4ds_week1.md)
 
 
 
