@@ -12,12 +12,14 @@ Welcome to our *R for Data Science* Study Group!
 
 * Orientation
 
-**Week 1** (2020-04-10):
+**Week 1 homework** (2020-04-10):
 
 * Read *Welcome* through *Section 3.2 (First Steps)*
 * Pierrette's notes are [here](https://github.com/ohsu-heme/r4ds_study_group/blob/master/r4ds_week1.md)
 
+**Week 2 homework** (2020-04-17):
 
+* Chapter 3.3 (Aesthetic mappings) through 3.6 (Geometric objects)
 
 
 
