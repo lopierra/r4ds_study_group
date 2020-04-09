@@ -19,7 +19,7 @@ Welcome to our *R for Data Science* Study Group!
 
 **Week 2 homework** (2020-04-17):
 
-* Chapter 3.3 (Aesthetic mappings) through 3.6 (Geometric objects)
+* Chapter 3.3 (Aesthetic mappings) through the end of Chapter 3
 
 
 
