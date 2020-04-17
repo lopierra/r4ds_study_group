@@ -19,7 +19,13 @@ Welcome to our *R for Data Science* Study Group!
 
 **Week 2 homework** (2020-04-17):
 
-* Chapter 3.3 (Aesthetic mappings) through 3.6 (Geometric objects)
+* Chapter 3.3 (Aesthetic mappings) through the end of Chapter 3
+
+**Week 3 homework** (2020-04-24):
+
+* Chapters 4 and 6 (workflow basics & scripts)
+* Inspect another built-in dataset and make a plot to share with group (https://ggplot2.tidyverse.org/reference/#section-data)
+
 
 
 
