@@ -20,10 +20,16 @@ Welcome to our *R for Data Science* Study Group!
 **Week 2 homework** (2020-04-17):
 
 * Chapter 3.3 (Aesthetic mappings) through the end of Chapter 3
+* Pierrette's notes are [here](https://github.com/ohsu-heme/r4ds_study_group/blob/master/r4ds_week2.md)
 
 **Week 3 homework** (2020-04-24):
 
+* Finish Chapter 3
 * Chapters 4 and 6 (workflow basics & scripts)
+* Sections 3.3 and 3.4 from [R for Excel Users](https://rstudio-conf-2020.github.io/r-for-excel/rstudio.html#intro-to-rmarkdown) - about RMarkdown
+
+Optional:
+
 * Inspect another built-in dataset and make a plot to share with group (https://ggplot2.tidyverse.org/reference/#section-data)
 
 
