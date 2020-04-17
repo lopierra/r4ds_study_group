@@ -1,35 +1,32 @@
-R4DS Study Group - Week 2
-================
-Pierrette Lo
-4/16/2020
+-   [This week’s assignment](#this-weeks-assignment)
+-   [3.3 Aesthetic mappings](#aesthetic-mappings)
+-   [3.5 Facets](#facets)
+-   [3.6 Geometric objects](#geometric-objects)
+-   [3.7 Statistical transformations](#statistical-transformations)
 
-  - [This week’s assignment](#this-weeks-assignment)
-  - [3.3 Aesthetic mappings](#aesthetic-mappings)
-  - [3.5 Facets](#facets)
-  - [3.6 Geometric objects](#geometric-objects)
-  - [3.7 Statistical transformations](#statistical-transformations)
+This week’s assignment
+----------------------
 
-## This week’s assignment
+-   The rest of Chapter 3
 
-  - The rest of Chapter 3
-
-## 3.3 Aesthetic mappings
+3.3 Aesthetic mappings
+----------------------
 
 ### Notes
 
-  - Briefly introduce the concept of notebooks and scripts
-  - You only have to install a package once, but you’ll have to use
+-   Briefly introduce the concept of notebooks and scripts
+-   You only have to install a package once, but you’ll have to use
     `library()` to load it every time you start a new R session
-  - Use `aes()` to connect a visual element to your data
-  - Different aesthetics have different levels of effectiveness
+-   Use `aes()` to connect a visual element to your data
+-   Different aesthetics have different levels of effectiveness
     (e.g. shapes can be hard to distinguish if your plot is small)
-  - If you want to make a universal change that is NOT linked to your
+-   If you want to make a universal change that is NOT linked to your
     data, put it outside of `aes()`
 
 ### Exercises:
 
 Again, see
-<https://jrnold.github.io/r4ds-exercise-solutions/data-visualisation.html>
+<a href="https://jrnold.github.io/r4ds-exercise-solutions/data-visualisation.html" class="uri">https://jrnold.github.io/r4ds-exercise-solutions/data-visualisation.html</a>
 for more detailed solutions.
 
 Reload {tidyverse} since I started a new R session:
@@ -40,7 +37,7 @@ library(tidyverse)
 
     ## Warning: package 'tidyverse' was built under R version 3.6.1
 
-    ## -- Attaching packages ------------------------------------------- tidyverse 1.3.0 --
+    ## -- Attaching packages ------------------------------------ tidyverse 1.3.0 --
 
     ## v ggplot2 3.3.0     v purrr   0.3.3
     ## v tibble  3.0.0     v dplyr   0.8.3
@@ -57,7 +54,7 @@ library(tidyverse)
 
     ## Warning: package 'dplyr' was built under R version 3.6.1
 
-    ## -- Conflicts ---------------------------------------------- tidyverse_conflicts() --
+    ## -- Conflicts --------------------------------------- tidyverse_conflicts() --
     ## x dplyr::filter() masks stats::filter()
     ## x dplyr::lag()    masks stats::lag()
 
@@ -68,7 +65,7 @@ ggplot(data = mpg) +
   geom_point(mapping = aes(x = displ, y = hwy, color = "blue"))
 ```
 
-![](r4ds_week2_files/figure-gfm/unnamed-chunk-2-1.png)<!-- -->
+![](r4ds_week2_files/figure-markdown_github/unnamed-chunk-2-1.png)
 
 `color` is inside `aes()`, so you are saying you want to map `color` to
 the variable “blue”. It will therefore assign the variable “blue” to the
@@ -84,9 +81,9 @@ ggplot(data = mpg) +
   geom_point(mapping = aes(x = displ, y = hwy), color = "blue")
 ```
 
-![](r4ds_week2_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
+![](r4ds_week2_files/figure-markdown_github/unnamed-chunk-3-1.png)
 
-> 2.  Which variables in `mpg` are categorical? Which variables are
+> 1.  Which variables in `mpg` are categorical? Which variables are
 >     continuous? (Hint: type `?mpg` to read the documentation for the
 >     dataset). How can you see this information when you run `mpg`?
 
@@ -108,7 +105,7 @@ glimpse(mpg)
     ## $ fl           <chr> "p", "p", "p", "p", "p", "p", "p", "p", "p", "p", "p",...
     ## $ class        <chr> "compact", "compact", "compact", "compact", "compact",...
 
-Use `glimpse()` to look at a summary of the data.
+Use `glimpse(mpg)` or `summary(mpg)` to look at a summary of the data.
 
 General, categorical = <chr> (ie. characters) and continuous = <dbl> or
 <int> (ie. numbers)
@@ -123,7 +120,7 @@ it’s a number, I think it could be a categorical variable because it has
 a limited possible number of values (4, 6, 8, or 5). Depends on what
 analysis you want to do.
 
-> 3.  Map a continuous variable to `color`, `size`, and `shape.` How do
+> 1.  Map a continuous variable to `color`, `size`, and `shape.` How do
 >     these aesthetics behave differently for categorical vs. continuous
 >     variables?
 
@@ -132,14 +129,16 @@ ggplot(data = mpg) +
   geom_point(aes(x = displ, y = hwy, color = cty))
 ```
 
-![](r4ds_week2_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
+![](r4ds_week2_files/figure-markdown_github/unnamed-chunk-5-1.png)
 
 ``` r
 ggplot(data = mpg) +
-  geom_point(aes(x = displ, y = hwy, size = cty))
+  geom_point(aes(x = displ, y = hwy, size = drv))
 ```
 
-![](r4ds_week2_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->
+    ## Warning: Using size for a discrete variable is not advised.
+
+![](r4ds_week2_files/figure-markdown_github/unnamed-chunk-6-1.png)
 
 ``` r
 ggplot(data = mpg) +
@@ -148,7 +147,7 @@ ggplot(data = mpg) +
 
     ## Error: A continuous variable can not be mapped to shape
 
-![](r4ds_week2_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
+![](r4ds_week2_files/figure-markdown_github/unnamed-chunk-7-1.png)
 
 Color and size work with continuous variables; shape does not. Shapes
 are not ordered - is a square greater than a circle?
@@ -158,35 +157,41 @@ Color is discrete for cat variables and a spectrum for cont variables.
 Size elicits a warning if you try to use it with cont variables - it
 will work but is not recommended.
 
-> 4.  What happens if you map the same variable to multiple aesthetics?
+> 1.  What happens if you map the same variable to multiple aesthetics?
 
 ``` r
 ggplot(data = mpg) +
-  geom_point(aes(x = displ, y = hwy, color = cty, size = cty))
+  geom_point(aes(x = displ, y = hwy, color = drv, size = drv))
 ```
 
-![](r4ds_week2_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
+    ## Warning: Using size for a discrete variable is not advised.
+
+![](r4ds_week2_files/figure-markdown_github/unnamed-chunk-8-1.png)
 
 You can do this, but the information is redundant and could lead to
 confusion - better to stick with one aesthetic per variable.
 
-> 5.  What does the `stroke` aesthetic do? What shapes does it work
+> 1.  What does the `stroke` aesthetic do? What shapes does it work
 >     with? (Hint: use `?geom_point`)
 
-``` r
-# For shapes that have a border (like 21), you can colour the inside and
-# outside separately. Use the stroke aesthetic to modify the width of the
-# border
+For shapes that have a border (like 21), you can colour the inside and
+outside separately. Use the stroke aesthetic to modify the width of the
+border.
 
+See [here](http://www.sthda.com/english/wiki/ggplot2-point-shapes) for
+list of available shapes.
+
+``` r
 ggplot(data = mpg) +
-  geom_point(aes(x = displ, y = hwy), shape = 21, size = 3, color = "red", fill = "blue", stroke = 5)
+  geom_point(aes(x = displ, y = hwy, fill = drv), shape = 21, size = 3, color = "black", stroke = 2)
 ```
 
-![](r4ds_week2_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
+![](r4ds_week2_files/figure-markdown_github/unnamed-chunk-9-1.png)
 
-color = border fill = inside area stroke = weight of border
+color = color of border fill = color of inside area stroke = thickness
+of border
 
-> 6.  What happens if you map an aesthetic to something other than a
+> 1.  What happens if you map an aesthetic to something other than a
 >     variable name, like `aes(colour = displ < 5)`? Note, you’ll also
 >     need to specify x and y.
 
@@ -195,7 +200,7 @@ ggplot(data = mpg) +
   geom_point(aes(x = displ, y = hwy, color = displ < 5))
 ```
 
-![](r4ds_week2_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
+![](r4ds_week2_files/figure-markdown_github/unnamed-chunk-10-1.png)
 
 You can create new variables “on the fly” within the ggplot command.
 (Remember the variable “blue” above?)
@@ -203,9 +208,8 @@ You can create new variables “on the fly” within the ggplot command.
 In this case you are creating a new variable `displ < 5` which has two
 values, TRUE or FALSE, and mapping it to `color`.
 
-## 3.5 Facets
-
-### Notes
+3.5 Facets
+----------
 
 ### Exercises
 
@@ -217,13 +221,13 @@ ggplot(data = mpg) +
   facet_wrap(~ cty)
 ```
 
-![](r4ds_week2_files/figure-gfm/unnamed-chunk-11-1.png)<!-- -->
+![](r4ds_week2_files/figure-markdown_github/unnamed-chunk-11-1.png)
 
 The continuous variable is converted to a categorical variable, so there
 is a facet for each unique value. Not very useful for `cty` but useful
 for a semi-categorical value like `cyl`.
 
-> 2.  What do the empty cells in plot with `facet_grid(drv ~ cyl)` mean?
+> 1.  What do the empty cells in plot with `facet_grid(drv ~ cyl)` mean?
 >     How do they relate to this plot?
 
 ``` r
@@ -232,14 +236,14 @@ ggplot(data = mpg) +
   facet_grid(drv ~ cyl)
 ```
 
-![](r4ds_week2_files/figure-gfm/unnamed-chunk-12-1.png)<!-- -->
+![](r4ds_week2_files/figure-markdown_github/unnamed-chunk-12-1.png)
 
 Blank facets indicate no overlap between the 2 categories (eg. there are
 no observations of 4-cylinder, rear wheel drive cars). You can check the
 overlap by running the code in the exercise (scatterplot of `drv` vs
 `cyl`).
 
-> 3.  What plots does the following code make? What does . do?
+> 1.  What plots does the following code make? What does `.` do?
 
 ``` r
 ggplot(data = mpg) + 
@@ -247,29 +251,30 @@ ggplot(data = mpg) +
   facet_grid(drv ~ .)
 ```
 
-![](r4ds_week2_files/figure-gfm/unnamed-chunk-13-1.png)<!-- -->
+![](r4ds_week2_files/figure-markdown_github/unnamed-chunk-13-1.png)
 
 Remember the format of the formula in `facet_grid()` is rows \~ columns
 (standard notation in R). The `.` means you want to ignore that side of
 the formula. So `facet_grid(drv ~ .)` means you want to split the facets
 into rows by `drv`, but don’t split into columns.
 
+If you want columns, but not rows:
+
 ``` r
 ggplot(data = mpg) + 
   geom_point(mapping = aes(x = displ, y = hwy)) +
-  facet_grid(. ~ cyl)
+  facet_grid(. ~ drv)
 ```
 
-![](r4ds_week2_files/figure-gfm/unnamed-chunk-14-1.png)<!-- -->
+![](r4ds_week2_files/figure-markdown_github/unnamed-chunk-14-1.png)
 
-`facet_grid(. ~ cyl)` means you want to split the facets into columns by
-`cyl`, and don’t split into rows.
-
-> 4.  Take the first faceted plot in this section.
-> 
+> 1.  Take the first faceted plot in this section.
+>
 > What are the advantages to using faceting instead of the colour
 > aesthetic? What are the disadvantages? How might the balance change if
 > you had a larger dataset?
+
+Faceted plot:
 
 ``` r
 ggplot(data = mpg) + 
@@ -277,16 +282,18 @@ ggplot(data = mpg) +
   facet_wrap(~ class, nrow = 2)
 ```
 
-![](r4ds_week2_files/figure-gfm/unnamed-chunk-15-1.png)<!-- -->
+![](r4ds_week2_files/figure-markdown_github/unnamed-chunk-15-1.png)
 
 Same plot as above, using color instead of facets:
+
+Colored plot:
 
 ``` r
 ggplot(data = mpg) + 
   geom_point(mapping = aes(x = displ, y = hwy, color = class))
 ```
 
-![](r4ds_week2_files/figure-gfm/unnamed-chunk-16-1.png)<!-- -->
+![](r4ds_week2_files/figure-markdown_github/unnamed-chunk-16-1.png)
 
 Faceting allows you to look at each category individually, but it can be
 hard to compare across categories if there are a lot of them. On the
@@ -297,7 +304,7 @@ See the [solutions
 manual](https://jrnold.github.io/r4ds-exercise-solutions/data-visualisation.html#exercise-3.5.4)
 for a more detailed explanation.
 
-> 5.  Read `?facet_wrap`. What does `nrow` do? What does `ncol` do? What
+> 1.  Read `?facet_wrap`. What does `nrow` do? What does `ncol` do? What
 >     other options control the layout of the individual panels? Why
 >     doesn’t `facet_grid()` have `nrow` and `ncol` arguments?
 
@@ -318,17 +325,17 @@ ggplot(data = mpg) +
   facet_grid(. ~ class)
 ```
 
-![](r4ds_week2_files/figure-gfm/unnamed-chunk-17-1.png)<!-- -->
+![](r4ds_week2_files/figure-markdown_github/unnamed-chunk-17-1.png)
 
 Example with `facet_wrap`:
 
 ``` r
 ggplot(data = mpg) + 
   geom_point(mapping = aes(x = displ, y = hwy)) + 
-  facet_wrap(~ class)
+  facet_wrap(~ class, ncol = 4)
 ```
 
-![](r4ds_week2_files/figure-gfm/unnamed-chunk-18-1.png)<!-- -->
+![](r4ds_week2_files/figure-markdown_github/unnamed-chunk-18-1.png)
 
 One option to point out is `scales` - the default is to scale the axes
 the same for every facet (`scales = "fixed"`) so it’s easier to compare.
@@ -341,30 +348,31 @@ Or you can free only the x or y axes using `scales = "free_x"` or
 ``` r
 ggplot(data = mpg) + 
   geom_point(mapping = aes(x = displ, y = hwy)) + 
-  facet_wrap(~ class, scales = "free")
+  facet_grid(. ~ class)
 ```
 
-![](r4ds_week2_files/figure-gfm/unnamed-chunk-19-1.png)<!-- -->
+![](r4ds_week2_files/figure-markdown_github/unnamed-chunk-19-1.png)
 
-> 6.  When using `facet_grid()` you should usually put the variable with
+> 1.  When using `facet_grid()` you should usually put the variable with
 >     more unique levels in the columns. Why?
 
 I think this just depends on your final layout for the plot. If it will
 be landscape, then you would want more columns. If portrait, you would
 want more rows.
 
-## 3.6 Geometric objects
+3.6 Geometric objects
+---------------------
 
 ### Notes
 
-  - The link to the RStudio cheatsheets is broken. The correct link is:
-    <https://rstudio.com/resources/cheatsheets/>.
-  - The specific link to the {ggplot2} cheatsheet is:
-    <https://github.com/rstudio/cheatsheets/raw/master/data-visualization-2.1.pdf>
-  - I highly recommend browsing through the cheatsheet just to get an
+-   The link to the RStudio cheatsheets is broken. The correct link is:
+    <a href="https://rstudio.com/resources/cheatsheets/" class="uri">https://rstudio.com/resources/cheatsheets/</a>.
+-   The specific link to the {ggplot2} cheatsheet is:
+    <a href="https://github.com/rstudio/cheatsheets/raw/master/data-visualization-2.1.pdf" class="uri">https://github.com/rstudio/cheatsheets/raw/master/data-visualization-2.1.pdf</a>
+-   I highly recommend browsing through the cheatsheet just to get an
     idea of what’s possible.
-  - The link to ggplot2 extensions is also broken; correct link is:
-    <http://exts.ggplot2.tidyverse.org/>
+-   The link to ggplot2 extensions is also broken; correct link is:
+    <a href="http://exts.ggplot2.tidyverse.org/" class="uri">http://exts.ggplot2.tidyverse.org/</a>
 
 ### Exercises
 
@@ -375,9 +383,9 @@ want more rows.
 
 See
 [cheatsheet](https://github.com/rstudio/cheatsheets/raw/master/data-visualization-2.1.pdf)
-for more\!
+for more!
 
-> 2.  Run this code in your head and predict what the output will look
+> 1.  Run this code in your head and predict what the output will look
 >     like. Then, run the code in R and check your predictions.
 
 ``` r
@@ -388,13 +396,13 @@ ggplot(data = mpg, mapping = aes(x = displ, y = hwy, color = drv)) +
 
     ## `geom_smooth()` using method = 'loess' and formula 'y ~ x'
 
-![](r4ds_week2_files/figure-gfm/unnamed-chunk-20-1.png)<!-- -->
+![](r4ds_week2_files/figure-markdown_github/unnamed-chunk-20-1.png)
 
 The last line means there is a smoothed line of best fit, for each `drv`
 group (remember that `color` automatically groups the variable it is
 mapped to) without standard errors.
 
-> 3.  What does `show.legend = FALSE` do? What happens if you remove it?
+> 1.  What does `show.legend = FALSE` do? What happens if you remove it?
 >     Why do you think I used it earlier in the chapter?
 
 Here’s the example where it was used:
@@ -409,14 +417,14 @@ ggplot(data = mpg) +
 
     ## `geom_smooth()` using method = 'loess' and formula 'y ~ x'
 
-![](r4ds_week2_files/figure-gfm/unnamed-chunk-21-1.png)<!-- -->
+![](r4ds_week2_files/figure-markdown_github/unnamed-chunk-21-1.png)
 
 `show.legend` controls whether the legend is shown. You can see the
 difference by changing `FALSE` to `TRUE`. `TRUE` is the default, so if
 you want a legend, you don’t need to include `show.legend` at all (note
 what happens if you delete it from the code above).
 
-> 4.  What does the se argument to geom\_smooth() do?
+> 1.  What does the se argument to geom\_smooth() do?
 
 ``` r
 ggplot(data = mpg, mapping = aes(x = displ, y = hwy, color = drv)) + 
@@ -426,7 +434,7 @@ ggplot(data = mpg, mapping = aes(x = displ, y = hwy, color = drv)) +
 
     ## `geom_smooth()` using method = 'loess' and formula 'y ~ x'
 
-![](r4ds_week2_files/figure-gfm/unnamed-chunk-22-1.png)<!-- -->
+![](r4ds_week2_files/figure-markdown_github/unnamed-chunk-22-1.png)
 
 `se = TRUE` plots standard error as a grey shaded ribbon. Note the lack
 of this in the above answer to question \#2, where `se = FALSE`.
@@ -434,19 +442,20 @@ of this in the above answer to question \#2, where `se = FALSE`.
 `TRUE` is the default, so if you want the standard error ribbon, you
 only need to type `geom_smooth()`.
 
-> 6.  Will these two graphs look different? Why/why not?
+> 1.  Will these two graphs look different? Why/why not?
 
 They should look the same. `geom_point()` and `geom_smooth()` inherit
 the options you supply to `ggplot()`, so specifying the data and
 mappings in each individual layer is redundant.
 
-## 3.7 Statistical transformations
+3.7 Statistical transformations
+-------------------------------
 
 ### Notes
 
-  - This is a little more “under the hood” - to be honest, I almost
+-   This is a little more “under the hood” - to be honest, I almost
     never use stats for the visualizations that I do.
-  - Check out the {ggplot2} cheatsheet for the different types of stats
+-   Check out the {ggplot2} cheatsheet for the different types of stats
 
 ### Exercises
 
@@ -478,7 +487,7 @@ ggplot(data = diamonds) +
 
     ## Warning: `fun.ymax` is deprecated. Use `fun.max` instead.
 
-![](r4ds_week2_files/figure-gfm/unnamed-chunk-23-1.png)<!-- -->
+![](r4ds_week2_files/figure-markdown_github/unnamed-chunk-23-1.png)
 
 To use `geom_pointrange()` instead of `stat_summary()`:
 
@@ -493,13 +502,13 @@ ggplot(data = diamonds) +
 
     ## No summary function supplied, defaulting to `mean_se()`
 
-![](r4ds_week2_files/figure-gfm/unnamed-chunk-24-1.png)<!-- -->
+![](r4ds_week2_files/figure-markdown_github/unnamed-chunk-24-1.png)
 
 This looks different because `stat = "summary` calculates se as the
 default for the line. If you want to use min/max as in the example,
 specify like this:
 
-(Help\! This solution was copied/pasted from the [solutions
+(Help! This solution was copied/pasted from the [solutions
 manual](https://jrnold.github.io/r4ds-exercise-solutions/data-visualisation.html#exercise-3.7.1),
 but it didn’t work for me. I just updated my {ggplot2} package, so I
 wonder if something changed?)
@@ -519,7 +528,7 @@ ggplot(data = diamonds) +
 
     ## No summary function supplied, defaulting to `mean_se()`
 
-![](r4ds_week2_files/figure-gfm/unnamed-chunk-25-1.png)<!-- -->
+![](r4ds_week2_files/figure-markdown_github/unnamed-chunk-25-1.png)
 
 This did work for me - I had to summarize the min, max, and median of
 the data first, and then feed that into ggplot.
@@ -532,9 +541,9 @@ diamonds %>%
   geom_pointrange(mapping = aes(ymin = lower, ymax = upper))
 ```
 
-![](r4ds_week2_files/figure-gfm/unnamed-chunk-26-1.png)<!-- -->
+![](r4ds_week2_files/figure-markdown_github/unnamed-chunk-26-1.png)
 
-> 2.  What does geom\_col() do? How is it different to geom\_bar()?
+> 1.  What does geom\_col() do? How is it different to geom\_bar()?
 
 See the help page for these two geoms (`?geom_col`).
 
@@ -551,16 +560,16 @@ ggplot(data = diamonds) +
   geom_bar(aes(x = cut))
 ```
 
-![](r4ds_week2_files/figure-gfm/unnamed-chunk-27-1.png)<!-- -->
+![](r4ds_week2_files/figure-markdown_github/unnamed-chunk-27-1.png)
 
 ``` r
 ggplot(data = diamonds) +
   geom_col(aes(x = cut, y = price))
 ```
 
-![](r4ds_week2_files/figure-gfm/unnamed-chunk-28-1.png)<!-- -->
+![](r4ds_week2_files/figure-markdown_github/unnamed-chunk-28-1.png)
 
-> 3.  Most geoms and stats come in pairs that are almost always used in
+> 1.  Most geoms and stats come in pairs that are almost always used in
 >     concert. Read through the documentation and make a list of all the
 >     pairs. What do they have in common?
 
@@ -568,7 +577,7 @@ See the [solutions
 manual](https://jrnold.github.io/r4ds-exercise-solutions/data-visualisation.html#exercise-3.7.3)
 for an extensive list.
 
-> 4.  What variables does stat\_smooth() compute? What parameters
+> 1.  What variables does stat\_smooth() compute? What parameters
 >     control its behaviour?
 
 According to the “Computed variables” section of the help
@@ -577,7 +586,7 @@ According to the “Computed variables” section of the help
 There are several parameters (“Arguments”), including `method`,
 `formula`, `se`, `level`, etc.
 
-> 5.  In our proportion bar chart, we need to set group = 1. Why? In
+> 1.  In our proportion bar chart, we need to set group = 1. Why? In
 >     other words what is the problem with these two graphs?
 
 The default behavior of `geom_bar` is to bin each value of `x` into
@@ -585,15 +594,15 @@ groups and then calculate proportion within groups - thus each group has
 a proportion of 100%.
 
 You need a dummy group to force `geom_bar` to calculate proportions
-across all values of `x`. Do this by adding `group = 1` (or `group =
-"dummy/whatever"`) to the aesthetics as follows:
+across all values of `x`. Do this by adding `group = 1` (or
+`group = "dummy/whatever"`) to the aesthetics as follows:
 
 ``` r
 ggplot(data = diamonds) + 
   geom_bar(mapping = aes(x = cut, y = stat(prop), group = 1))
 ```
 
-![](r4ds_week2_files/figure-gfm/unnamed-chunk-29-1.png)<!-- -->
+![](r4ds_week2_files/figure-markdown_github/unnamed-chunk-29-1.png)
 
 With the 2nd example, fill = color is again causing geom\_bar to group
 each value of x and calculate proportions for each group as 100%. If you
@@ -606,4 +615,4 @@ ggplot(data = diamonds) +
   geom_bar(mapping = aes(x = cut, y = stat(count)/sum(stat(count)), fill = color))
 ```
 
-![](r4ds_week2_files/figure-gfm/unnamed-chunk-30-1.png)<!-- -->
+![](r4ds_week2_files/figure-markdown_github/unnamed-chunk-30-1.png)
