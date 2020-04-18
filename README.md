@@ -25,7 +25,7 @@ Welcome to our *R for Data Science* Study Group!
 **Weeks 3 & 4 homework** (April 24 & May 1, 2020):
 
 * Finish Chapter 3
-* Chapters 4 and 6 (workflow basics & scripts)
+* Chapters 4, 6, and 8 (workflow basics, scripts, and projects)
 * Sections 3.3 and 3.4 from [R for Excel Users](https://rstudio-conf-2020.github.io/r-for-excel/rstudio.html#intro-to-rmarkdown) - about RMarkdown
 * Section 4 (R Markdown) from [Getting Used to R](https://ismayc.github.io/rbasics-book/4-rmarkdown.html)
 
