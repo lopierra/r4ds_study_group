@@ -27,13 +27,14 @@ Welcome to our *R for Data Science* Study Group!
 * Finish Chapter 3
 * Pierrette's notes are [here](https://github.com/ohsu-heme/r4ds_study_group/blob/master/r4ds_week3.md)
 
-**Week 3 homework** (May 1, 2020):
+**Week 4 homework** (May 1, 2020):
 
 * Chapters 4, 6, and 8 (workflow basics, scripts, and projects)
 * Choose one of these readings about R Markdown:
   * Chapter 2 (Why R Markdown) from [RMarkdown for Scientists](https://rmd4sci.njtierney.com/why-rmarkdown.html)
   * Sections 3.3 and 3.4 (Intro to R Markdown) from [R for Excel Users](https://rstudio-conf-2020.github.io/r-for-excel/rstudio.html#intro-to-rmarkdown)
   * Section 4 (R Markdown) from [Getting Used to R](https://ismayc.github.io/rbasics-book/4-rmarkdown.html)
+* We will finish reviewing the rest of Chapter 3 in our meeting.
 
 Optional:
 
