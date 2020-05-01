@@ -1,4 +1,4 @@
-R4DS Study Group - Week 4
+R4DS Study Group - Week 4 (part 1)
 ================
 Pierrette Lo
 5/1/2020
@@ -19,6 +19,22 @@ library(tidyverse)
 ```
 
 ## Ch 3:8 Position adjustments
+
+### Notes
+
+  - For bar graphs, the default position is `"stack"`. That means it
+    will take the counts for each group (usually represent by `fill`
+    color) and stack them on top of each other (starting from where the
+    previous group ended).
+  - The `"identity"` position means it will plot the count for each
+    `fill` group literally (so starting from 0). Bars will overlap and
+    be difficult to see.
+  - The `"fill"` position plots proportions of each group, with each bar
+    the same height of 1.
+  - The `"dodge"` position plots bars next to each other.
+  - The `"jitter"` position is for points - it adds a bit of random
+    noise to the position of each point so points with the same value
+    are scattered apart - this makes it easier to see the distribution.
 
 ### Exercises
 
@@ -54,9 +70,14 @@ jitter in vertical and horizontal directions, respectively.
 Use 0.5 to spread the points just enough that individual groups can’t be
 distinguished (without overspreading).
 
+Use `set.seed(any number you want)` before `ggplot()` to reproduce the
+same random noise every time
+
 ``` r
+set.seed(42)
+
 ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) + 
-  geom_jitter(width = 0.1, height = 0.1)
+  geom_jitter(width = 0.5, height = 0.5)
 ```
 
 ![](r4ds_week4_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
@@ -92,6 +113,14 @@ ggplot(data = mpg, aes(x = drv, y = hwy, color = class)) +
 
 ## Ch 3:9 Coordinate systems
 
+### Notes:
+
+  - `coord_flip()` has the same effect as reversing the variables you
+    specify for x and y. However, it’s more intuitive to have the
+    dependent variable on the y axis, so it’s easier to set the plot up
+    that way and then flip it, rather than trying to think about having
+    the dependent variable on the x axis.
+
 ### Exercises
 
 > 1.  Turn a stacked bar chart into a pie chart using `coord_polar()`.
@@ -99,7 +128,8 @@ ggplot(data = mpg, aes(x = drv, y = hwy, color = class)) +
 A pie chart is basically a stacked bar graph with a single bar,
 translated onto polar coordinates.
 
-Start by making a bar graph with a dummy variable for `x`.
+Start by making a bar graph with a dummy variable for `x`, since you
+don’t want any information on the x axis.
 
 ``` r
 ggplot(mpg, aes(x = "", fill = class)) +
