@@ -31,11 +31,16 @@ Welcome to our *R for Data Science* Study Group!
 
 * We will finish reviewing the rest of Chapter 3 in our meeting. Pierrette's notes are [here](https://github.com/ohsu-heme/r4ds_study_group/blob/master/r4ds_week4.md)
 
+Optional:
+
+* Inspect another built-in dataset and make a plot to share with group (https://ggplot2.tidyverse.org/reference/#section-data)
+* Save it in either a script or an R Markdown document
 
 **Week 5 homework** (May 8, 2020):
 
 * Chapters 4, 6, and 8 (workflow basics, scripts, and projects)
-* Pierrette's notes are [here](https://github.com/ohsu-heme/r4ds_study_group/blob/master/r4ds_week4_part2.md)
+* Share more plots if we have time
+* Pierrette's notes are [here](https://github.com/ohsu-heme/r4ds_study_group/blob/master/r4ds_week5.md)
 
 * Choose one (or more!) of these readings about R Markdown:
   * Chapter 2 (Why R Markdown) from [RMarkdown for Scientists](https://rmd4sci.njtierney.com/why-rmarkdown.html)
@@ -43,10 +48,7 @@ Welcome to our *R for Data Science* Study Group!
   * Section 4 (R Markdown) from [Getting Used to R](https://ismayc.github.io/rbasics-book/4-rmarkdown.html)
   * We will probably save the R Markdown discussion for a future meeting, though, so we can get back to working with data
 
-Optional:
 
-* Inspect another built-in dataset and make a plot to share with group (https://ggplot2.tidyverse.org/reference/#section-data)
-* Save it in either a script or an R Markdown document
 
 
 
