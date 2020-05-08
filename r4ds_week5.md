@@ -132,6 +132,10 @@ what kinds of messages you get when you enable diagnostics.
 
 ![screenshot](r4ds_getwd.PNG)
 
+### Demo
+
+Create a new R Project to use for your R4DS files.
+
 ## R Markdown readings
 
   - Let’s save the R Markdown discussion for a future meeting so we can
