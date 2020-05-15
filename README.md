@@ -4,14 +4,21 @@ Welcome to our *R for Data Science* Study Group!
 
 * The **book** is here: https://r4ds.had.co.nz/
 * The **solutions** are here: https://jrnold.github.io/r4ds-exercise-solutions/
+* An alternate solutions manual: https://brshallo.github.io/r4ds_solutions/
+
 * Other learning resources are here: https://github.com/ohsu-heme/r_learning_resources
 
 ---
+
+**Week 7 homework** (week ending May 22, 2020):
+
+* The rest of Chapter 5 (5.5 through 5.7)
 
 **Week 6 homework** (week ending May 15, 2020):
 
 * Chapter 5 (Data transformation)
 * We will probably only get through the exercises for 5.1-5.4 in this meeting, but feel free to read ahead.
+* Pierrette's notes are [here](https://github.com/ohsu-heme/r4ds_study_group/blob/master/r4ds_week6.md)
 
 **Week 5 homework** (week ending May 8, 2020):
 
