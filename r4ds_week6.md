@@ -7,12 +7,11 @@ Pierrette Lo
   - [Ch 5:1 Introduction](#ch-51-introduction)
   - [Ch 5:2 Filter](#ch-52-filter)
   - [Ch 5:3 Arrange](#ch-53-arrange)
-  - [Ch 5:4 Select](#ch-54-select)
   - [Bonus: the pipe operator (`%>%`)](#bonus-the-pipe-operator)
 
 ## This week’s assignment
 
-  - Chapter 5 - Data Transformation (5.1 through 5.4)
+  - Chapter 5 - Data Transformation (5.1 through 5.3)
 
 As always, start by loading {tidyverse}, plus the {nycflights13} data
 package that will be used in this chapter.
@@ -34,9 +33,15 @@ library(nycflights13)
     really helpful to remember what these functions do.
     <https://github.com/rstudio/cheatsheets/raw/master/data-transformation.pdf>
 
+  - tibble == dataframe with extra features
+
   - Use `view(dataset)` to view a dataframe in the RStudio viewer
 
-  - tibble == dataframe with extra features
+<!-- end list -->
+
+``` r
+view(flights)
+```
 
   - Remember that when you run a function on an object, it doesn’t
     change the original object. You’ll need to store that output as a
@@ -654,207 +659,6 @@ arrange(flights, air_time)
     ## #   carrier <chr>, flight <int>, tailnum <chr>, origin <chr>, dest <chr>,
     ## #   air_time <dbl>, distance <dbl>, hour <dbl>, minute <dbl>, time_hour <dttm>
 
-## Ch 5:4 Select
-
-### Exercises
-
-> 1.  Brainstorm as many ways as possible to select `dep_time`,
->     `dep_delay`, `arr_time`, and `arr_delay` from flights.
-
-``` r
-# use column names
-select(flights, dep_time, dep_delay, arr_time, arr_delay)
-```
-
-    ## # A tibble: 336,776 x 4
-    ##    dep_time dep_delay arr_time arr_delay
-    ##       <int>     <dbl>    <int>     <dbl>
-    ##  1      517         2      830        11
-    ##  2      533         4      850        20
-    ##  3      542         2      923        33
-    ##  4      544        -1     1004       -18
-    ##  5      554        -6      812       -25
-    ##  6      554        -4      740        12
-    ##  7      555        -5      913        19
-    ##  8      557        -3      709       -14
-    ##  9      557        -3      838        -8
-    ## 10      558        -2      753         8
-    ## # ... with 336,766 more rows
-
-``` r
-# delete all the columns you don't want
-select(flights, -(year:day), -sched_dep_time, - sched_arr_time, -(carrier:time_hour))
-```
-
-    ## # A tibble: 336,776 x 4
-    ##    dep_time dep_delay arr_time arr_delay
-    ##       <int>     <dbl>    <int>     <dbl>
-    ##  1      517         2      830        11
-    ##  2      533         4      850        20
-    ##  3      542         2      923        33
-    ##  4      544        -1     1004       -18
-    ##  5      554        -6      812       -25
-    ##  6      554        -4      740        12
-    ##  7      555        -5      913        19
-    ##  8      557        -3      709       -14
-    ##  9      557        -3      838        -8
-    ## 10      558        -2      753         8
-    ## # ... with 336,766 more rows
-
-``` r
-# use column numbers
-select(flights, 4, 6, 7, 9)
-```
-
-    ## # A tibble: 336,776 x 4
-    ##    dep_time dep_delay arr_time arr_delay
-    ##       <int>     <dbl>    <int>     <dbl>
-    ##  1      517         2      830        11
-    ##  2      533         4      850        20
-    ##  3      542         2      923        33
-    ##  4      544        -1     1004       -18
-    ##  5      554        -6      812       -25
-    ##  6      554        -4      740        12
-    ##  7      555        -5      913        19
-    ##  8      557        -3      709       -14
-    ##  9      557        -3      838        -8
-    ## 10      558        -2      753         8
-    ## # ... with 336,766 more rows
-
-``` r
-# use `starts_with()`
-select(flights, starts_with("dep_"), starts_with("arr_"))
-```
-
-    ## # A tibble: 336,776 x 4
-    ##    dep_time dep_delay arr_time arr_delay
-    ##       <int>     <dbl>    <int>     <dbl>
-    ##  1      517         2      830        11
-    ##  2      533         4      850        20
-    ##  3      542         2      923        33
-    ##  4      544        -1     1004       -18
-    ##  5      554        -6      812       -25
-    ##  6      554        -4      740        12
-    ##  7      555        -5      913        19
-    ##  8      557        -3      709       -14
-    ##  9      557        -3      838        -8
-    ## 10      558        -2      753         8
-    ## # ... with 336,766 more rows
-
-In practice, avoid using column numbers to pick columns. If you later
-add, subtract, or reorder the columns in your dataset but use your old
-code, the column numbers will now be wrong\!
-
-> 2.  What happens if you include the name of a variable multiple times
->     in a `select()` call?
-
-``` r
-select(flights, origin, origin, origin)
-```
-
-    ## # A tibble: 336,776 x 1
-    ##    origin
-    ##    <chr> 
-    ##  1 EWR   
-    ##  2 LGA   
-    ##  3 JFK   
-    ##  4 JFK   
-    ##  5 LGA   
-    ##  6 EWR   
-    ##  7 EWR   
-    ##  8 LGA   
-    ##  9 JFK   
-    ## 10 LGA   
-    ## # ... with 336,766 more rows
-
-Duplicated columns will be ignored. This is why `everything()` works to
-select some columns and then `everything()` else.
-
-``` r
-select(flights, origin, everything())
-```
-
-    ## # A tibble: 336,776 x 19
-    ##    origin  year month   day dep_time sched_dep_time dep_delay arr_time
-    ##    <chr>  <int> <int> <int>    <int>          <int>     <dbl>    <int>
-    ##  1 EWR     2013     1     1      517            515         2      830
-    ##  2 LGA     2013     1     1      533            529         4      850
-    ##  3 JFK     2013     1     1      542            540         2      923
-    ##  4 JFK     2013     1     1      544            545        -1     1004
-    ##  5 LGA     2013     1     1      554            600        -6      812
-    ##  6 EWR     2013     1     1      554            558        -4      740
-    ##  7 EWR     2013     1     1      555            600        -5      913
-    ##  8 LGA     2013     1     1      557            600        -3      709
-    ##  9 JFK     2013     1     1      557            600        -3      838
-    ## 10 LGA     2013     1     1      558            600        -2      753
-    ## # ... with 336,766 more rows, and 11 more variables: sched_arr_time <int>,
-    ## #   arr_delay <dbl>, carrier <chr>, flight <int>, tailnum <chr>, dest <chr>,
-    ## #   air_time <dbl>, distance <dbl>, hour <dbl>, minute <dbl>, time_hour <dttm>
-
-> 3.  What does the `one_of()` function do? Why might it be helpful in
->     conjunction with this vector?
-
-``` r
-vars <- c("year", "month", "day", "dep_delay", "arr_delay")
-
-select(flights, one_of(vars))
-```
-
-    ## # A tibble: 336,776 x 5
-    ##     year month   day dep_delay arr_delay
-    ##    <int> <int> <int>     <dbl>     <dbl>
-    ##  1  2013     1     1         2        11
-    ##  2  2013     1     1         4        20
-    ##  3  2013     1     1         2        33
-    ##  4  2013     1     1        -1       -18
-    ##  5  2013     1     1        -6       -25
-    ##  6  2013     1     1        -4        12
-    ##  7  2013     1     1        -5        19
-    ##  8  2013     1     1        -3       -14
-    ##  9  2013     1     1        -3        -8
-    ## 10  2013     1     1        -2         8
-    ## # ... with 336,766 more rows
-
-It’s like the `%in%` operator for `filter()`.
-
-> 4.  Does the result of running the following code surprise you? How do
->     the select helpers deal with case by default? How can you change
->     that default?
-
-``` r
-select(flights, contains("TIME"))
-```
-
-    ## # A tibble: 336,776 x 6
-    ##    dep_time sched_dep_time arr_time sched_arr_time air_time time_hour          
-    ##       <int>          <int>    <int>          <int>    <dbl> <dttm>             
-    ##  1      517            515      830            819      227 2013-01-01 05:00:00
-    ##  2      533            529      850            830      227 2013-01-01 05:00:00
-    ##  3      542            540      923            850      160 2013-01-01 05:00:00
-    ##  4      544            545     1004           1022      183 2013-01-01 05:00:00
-    ##  5      554            600      812            837      116 2013-01-01 06:00:00
-    ##  6      554            558      740            728      150 2013-01-01 05:00:00
-    ##  7      555            600      913            854      158 2013-01-01 06:00:00
-    ##  8      557            600      709            723       53 2013-01-01 06:00:00
-    ##  9      557            600      838            846      140 2013-01-01 06:00:00
-    ## 10      558            600      753            745      138 2013-01-01 06:00:00
-    ## # ... with 336,766 more rows
-
-Per the help (`?contains()`), the select helper functions are by default
-NOT case-sensitive.
-
-To make it case-sensitive, use `ignore.case = F`
-
-``` r
-select(flights, contains("TIME", ignore.case = F))
-```
-
-    ## # A tibble: 336,776 x 0
-
-``` r
-# returns no rows
-```
-
 ## Bonus: the pipe operator (`%>%`)
 
 When you’re performing multiple operations on a dataframe, you can
@@ -901,25 +705,9 @@ Example 2: use pipes
 flights %>% 
   select(origin, dep_delay) %>% 
   filter(origin == "JFK") %>% 
-  arrange(desc(dep_delay))
-```
+  arrange(desc(dep_delay)) %>% 
+  view()
 
-    ## # A tibble: 111,279 x 2
-    ##    origin dep_delay
-    ##    <chr>      <dbl>
-    ##  1 JFK         1301
-    ##  2 JFK         1137
-    ##  3 JFK         1014
-    ##  4 JFK         1005
-    ##  5 JFK          960
-    ##  6 JFK          899
-    ##  7 JFK          853
-    ##  8 JFK          853
-    ##  9 JFK          825
-    ## 10 JFK          800
-    ## # ... with 111,269 more rows
-
-``` r
 # can also assign this whole sequence to a variable
 # and/or pipe the whole thing to `view()`
 ```
