@@ -11,23 +11,22 @@ Welcome to our *R for Data Science* Study Group!
 ---
 **Week 9 homework** (week ending June 5, 2020):
 
-* Chapter 7 (Exploratory data analysis)
+* We will probably still be finishing up Chapter 5 at this point, but feel free to start on Chapter 7 (Exploratory data analysis)
 
 **Week 8 homework** (week ending May 29, 2020):
 
-* We will probably need this week to finish up Chapter 5
-* We'll also take a breather and see if anyone new wants to join us for the EDA section (Chap 7)
+* The rest of Chapter 5, maybe (5.5 through 5.7)
 
 **Week 7 homework** (week ending May 22, 2020):
 
-* The rest of Chapter 5 (5.5 through 5.7)
+* The rest of Chapter 5 (5.4 through 5.7)
 * Pierrette's notes are [here](https://github.com/ohsu-heme/r4ds_study_group/blob/master/r4ds_week7.md)
 
 **Week 6 homework** (week ending May 15, 2020):
 
 * Chapter 5 (Data transformation)
 * We will probably only get through the exercises for 5.1-5.4 in this meeting, but feel free to read ahead.
-* Pierrette's notes are [here](https://github.com/ohsu-heme/r4ds_study_group/blob/master/r4ds_week6.md)
+* Pierrette's notes on 5.1-5.3 are [here](https://github.com/ohsu-heme/r4ds_study_group/blob/master/r4ds_week6.md)
 
 **Week 5 homework** (week ending May 8, 2020):
 
