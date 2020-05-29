@@ -9,6 +9,9 @@ Welcome to our *R for Data Science* Study Group!
 * Other learning resources are here: https://github.com/ohsu-heme/r_learning_resources
 
 ---
+**Week 11 homework** (week ending June 19, 2020):
+* Chapter 7.1 through 7.4 (Missing values)
+
 **Week 10 homework** (week ending June 12, 2020):
 
 * Finish Chapter 5.7
