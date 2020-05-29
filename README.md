@@ -19,6 +19,7 @@ Welcome to our *R for Data Science* Study Group!
 **Week 8 homework** (week ending May 29, 2020):
 
 * Chapter 5.5 through most of 5.6
+* Pierrette's notes are [here](https://github.com/ohsu-heme/r4ds_study_group/blob/master/r4ds_week8.md)
 
 **Week 7 homework** (week ending May 22, 2020):
 
