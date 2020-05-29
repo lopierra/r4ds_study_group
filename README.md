@@ -9,13 +9,16 @@ Welcome to our *R for Data Science* Study Group!
 * Other learning resources are here: https://github.com/ohsu-heme/r_learning_resources
 
 ---
-**Week 9 homework** (week ending June 5, 2020):
+**Week 10 homework** (week ending June 12, 2020):
 
-* We will probably still be finishing up Chapter 5 at this point, but feel free to start on Chapter 7 (Exploratory data analysis)
+* Finish Chapter 5.7
+* Start reading Chapter 7 (Exploratory data analysis)
+
+**Week 9 - break - NO MEETING** (week ending June 5, 2020):
 
 **Week 8 homework** (week ending May 29, 2020):
 
-* The rest of Chapter 5, maybe (5.5 through 5.7)
+* Chapter 5.5 through most of 5.6
 
 **Week 7 homework** (week ending May 22, 2020):
 
