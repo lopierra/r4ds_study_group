@@ -9,13 +9,16 @@ Welcome to our *R for Data Science* Study Group!
 * Other learning resources are here: https://github.com/ohsu-heme/r_learning_resources
 
 ---
+** Week 12** (week ending June 26):
+* Pierrette out - No meeting
+
 **Week 11 homework** (week ending June 19, 2020):
-* Chapter 7.1 through 7.4 (Missing values)
+* Exploratory Data Analysis - Chapter 7.1 through 7.4 (Missing values)
 
 **Week 10 homework** (week ending June 12, 2020):
 
 * Finish Chapter 5.7
-* Start reading Chapter 7 (Exploratory data analysis)
+* Pierrette's notes are [here](https://github.com/ohsu-heme/r4ds_study_group/blob/master/r4ds_week10.md)
 
 **Week 9 - break - NO MEETING** (week ending June 5, 2020):
 
