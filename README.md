@@ -9,13 +9,20 @@ Welcome to our *R for Data Science* Study Group!
 * Other learning resources are here: https://github.com/ohsu-heme/r_learning_resources
 
 ---
-**Week 13** (week ending July 3)
+**Week 14** (week ending July 10):
+
 * Exploratory Data Analysis - Chapter 7.1 through 7.4 (Missing values)
 
+**Week 13** (week ending July 3):
+
+* NO MEETING (OHSU Holiday)
+
 **Week 12** (week ending June 26):
-* Pierrette out - No meeting
+
+* NO MEETING
 
 **Week 11** (week ending June 19, 2020):
+
 * Open meeting to discuss Ch. 5.7 or examples from your own work 
 
 **Week 10 homework** (week ending June 12, 2020):
