@@ -33,7 +33,7 @@ library(nycflights13)
 <!-- end list -->
 
 ``` r
-flights %>% 
+flights %>%
   group_by(carrier) %>% 
   summarize(avg_arr_delay = mean(arr_delay, na.rm = T)) %>% 
   arrange(desc(avg_arr_delay)) %>% 
@@ -148,7 +148,7 @@ equivalent of `count()` followed by `arrange(desc())`.
     vignette per package.
 
   - See what vignettes are available for a package using
-    `browseVignettes("packageName)`
+    `browseVignettes("packageName")`
 
   - Here is the link to the vignette on window functions mentioned in
     the text:
@@ -439,7 +439,7 @@ Visualize the data, with lines for mean and +/- 3 sd (99.7% of data)
 flights_speed %>% 
   ggplot(aes(x = speed)) +
   geom_density() +
-  geom_vline(aes(xintercept = median_speed)) +
+  geom_vline(aes(xintercept = median_speed), color = "blue") +
   geom_vline(aes(xintercept = median_speed - (sd_speed * 3))) +
   geom_vline(aes(xintercept = median_speed + (sd_speed * 3)))
 ```
