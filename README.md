@@ -9,7 +9,7 @@ Welcome to our *R for Data Science* Study Group!
 * Other learning resources are here: https://github.com/ohsu-heme/r_learning_resources
 
 ---
-** Week 12** (week ending June 26):
+**Week 12** (week ending June 26):
 * Pierrette out - No meeting
 
 **Week 11 homework** (week ending June 19, 2020):
