@@ -12,6 +12,7 @@ Welcome to our *R for Data Science* Study Group!
 **Week 14** (week ending July 10):
 
 * Exploratory Data Analysis - Chapter 7.1 through 7.4 (Missing values)
+* Pierrette's notes are [here](https://github.com/ohsu-heme/r4ds_study_group/blob/master/r4ds_week14.md)
 
 **Week 13** (week ending July 3):
 
