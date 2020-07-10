@@ -9,6 +9,10 @@ Welcome to our *R for Data Science* Study Group!
 * Other learning resources are here: https://github.com/ohsu-heme/r_learning_resources
 
 ---
+**Week 15** (week ending July 17):
+
+* Rest of Chapter 7 [7.5 - 7.8]
+
 **Week 14** (week ending July 10):
 
 * Exploratory Data Analysis - Chapter 7.1 through 7.4 (Missing values)
