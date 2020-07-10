@@ -38,18 +38,8 @@ library(palmerpenguins)
 
 # take a look at first few rows of the data
 
-head(penguins)
+head(penguins) %>% view()
 ```
-
-    ## # A tibble: 6 x 7
-    ##   species island bill_length_mm bill_depth_mm flipper_length_~ body_mass_g sex  
-    ##   <fct>   <fct>           <dbl>         <dbl>            <int>       <int> <fct>
-    ## 1 Adelie  Torge~           39.1          18.7              181        3750 male 
-    ## 2 Adelie  Torge~           39.5          17.4              186        3800 fema~
-    ## 3 Adelie  Torge~           40.3          18                195        3250 fema~
-    ## 4 Adelie  Torge~           NA            NA                 NA          NA <NA> 
-    ## 5 Adelie  Torge~           36.7          19.3              193        3450 fema~
-    ## 6 Adelie  Torge~           39.3          20.6              190        3650 male
 
 Then get summary statistics with {skimr}
 
@@ -271,6 +261,26 @@ diamonds %>%
 
 ![](r4ds_week14_files/figure-gfm/unnamed-chunk-11-1.png)<!-- -->
 
+``` r
+diamonds %>% 
+  arrange(desc(z))
+```
+
+    ## # A tibble: 53,940 x 10
+    ##    carat cut       color clarity depth table price     x     y     z
+    ##    <dbl> <ord>     <ord> <ord>   <dbl> <dbl> <int> <dbl> <dbl> <dbl>
+    ##  1  0.51 Very Good E     VS1      61.8  54.7  1970  5.12  5.15 31.8 
+    ##  2  2    Premium   H     SI2      58.9  57   12210  8.09 58.9   8.06
+    ##  3  5.01 Fair      J     I1       65.5  59   18018 10.7  10.5   6.98
+    ##  4  4.5  Fair      J     I1       65.8  58   18531 10.2  10.2   6.72
+    ##  5  4.13 Fair      H     I1       64.8  61   17329 10     9.85  6.43
+    ##  6  3.65 Fair      H     I1       67.1  53   11668  9.53  9.48  6.38
+    ##  7  4    Very Good I     I1       63.3  58   15984 10.0   9.94  6.31
+    ##  8  3.4  Fair      D     I1       66.8  52   15964  9.42  9.34  6.27
+    ##  9  4.01 Premium   J     I1       62.5  62   15223 10.0   9.94  6.24
+    ## 10  4.01 Premium   I     I1       61    61   15223 10.1  10.1   6.17
+    ## # ... with 53,930 more rows
+
   - It looks like `z` has the least variability, and again `x` and `y`
     are very similar once you remove the outliers.
   - The data look “spiky” - maybe because people tend to round to
@@ -296,15 +306,15 @@ diamonds %>%
   geom_histogram(binwidth = 500)
 ```
 
-![](r4ds_week14_files/figure-gfm/unnamed-chunk-13-1.png)<!-- -->
+![](r4ds_week14_files/figure-gfm/unnamed-chunk-14-1.png)<!-- -->
 
 ``` r
 diamonds %>% 
   ggplot(aes(x = price)) + 
-  geom_histogram(binwidth = 100)
+  geom_histogram(binwidth = 50)
 ```
 
-![](r4ds_week14_files/figure-gfm/unnamed-chunk-14-1.png)<!-- -->
+![](r4ds_week14_files/figure-gfm/unnamed-chunk-15-1.png)<!-- -->
 
 ``` r
 diamonds %>% 
@@ -313,7 +323,7 @@ diamonds %>%
   coord_cartesian(xlim = c(0, 2500))
 ```
 
-![](r4ds_week14_files/figure-gfm/unnamed-chunk-15-1.png)<!-- -->
+![](r4ds_week14_files/figure-gfm/unnamed-chunk-16-1.png)<!-- -->
 
 I dont know why there are no diamonds that cost $1500 - another error?
 
@@ -331,23 +341,23 @@ diamonds %>%
   coord_cartesian(xlim = c(0.99, 1))
 ```
 
-![](r4ds_week14_files/figure-gfm/unnamed-chunk-16-1.png)<!-- -->
+![](r4ds_week14_files/figure-gfm/unnamed-chunk-17-1.png)<!-- -->
 
 There are almost no diamonds that are 0.99 carats. I assume this is
 because people have a tendency to round up. It’s interesting to see how
 a dataset consisting of hard numbers can still be so subjective\!
 
-> 4.  Compare and contrast coord\_cartesian() vs xlim() or ylim() when
->     zooming in on a histogram. What happens if you leave binwidth
+> 4.  Compare and contrast `coord_cartesian()` vs `xlim()` or `ylim()`
+>     when zooming in on a histogram. What happens if you leave binwidth
 >     unset? What happens if you try and zoom so only half a bar shows?
 
   - Default binwidth is 30 if you don’t specify
 
-  - `xlim()` and `ylim()` zoom in and remove data that fall outside the
-    limits (you will get a warning message indicating how many data
-    points were removed)
+  - `xlim()` and `ylim()` = “crop” - zoom in and remove data that fall
+    outside the limits (you will get a warning message indicating how
+    many data points were removed)
 
-  - `coord_cartesian()` zooms in without removing data
+  - `coord_cartesian()` = “zoom” - zooms in without removing data
 
   - `coord_cartesian()` calculates binwidths and counts first, then
     zooms in, so some bars may be cut off
@@ -366,7 +376,7 @@ diamonds %>%
 
     ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 
-![](r4ds_week14_files/figure-gfm/unnamed-chunk-17-1.png)<!-- -->
+![](r4ds_week14_files/figure-gfm/unnamed-chunk-18-1.png)<!-- -->
 
 ``` r
 diamonds %>% 
@@ -382,7 +392,7 @@ diamonds %>%
 
     ## Warning: Removed 3 rows containing missing values (geom_bar).
 
-![](r4ds_week14_files/figure-gfm/unnamed-chunk-18-1.png)<!-- -->
+![](r4ds_week14_files/figure-gfm/unnamed-chunk-19-1.png)<!-- -->
 
 ## Ch 7:4 Missing values
 
@@ -403,7 +413,7 @@ penguins %>%
   geom_bar()
 ```
 
-![](r4ds_week14_files/figure-gfm/unnamed-chunk-19-1.png)<!-- -->
+![](r4ds_week14_files/figure-gfm/unnamed-chunk-20-1.png)<!-- -->
 
 In a histogram, the continuous `x` variable is first grouped into bins,
 then the number of observations in each bin is counted. NAs don’t belong
@@ -420,7 +430,7 @@ penguins %>%
 
     ## Warning: Removed 2 rows containing non-finite values (stat_bin).
 
-![](r4ds_week14_files/figure-gfm/unnamed-chunk-20-1.png)<!-- -->
+![](r4ds_week14_files/figure-gfm/unnamed-chunk-21-1.png)<!-- -->
 
 > 2.  What does na.rm = TRUE do in mean() and sum()?
 
@@ -437,7 +447,7 @@ mean(penguins$flipper_length_mm)
 With `na.rm = TRUE`:
 
 ``` r
-mean(penguins$flipper_length_mm, na.rm = TRUE)
+mean(penguins$flipper_length_mm, na.rm = T)
 ```
 
     ## [1] 200.9152
