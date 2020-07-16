@@ -9,9 +9,14 @@ Welcome to our *R for Data Science* Study Group!
 * Other learning resources are here: https://github.com/ohsu-heme/r_learning_resources
 
 ---
+**Week 16** (week ending July 24):
+
+* Rest of Chapter 7
+
 **Week 15** (week ending July 17):
 
-* Rest of Chapter 7 [7.5 - 7.8]
+* Chapter 7.5
+* Pierrette's notes are [here](https://github.com/ohsu-heme/r4ds_study_group/blob/master/r4ds_week15.md)
 
 **Week 14** (week ending July 10):
 
