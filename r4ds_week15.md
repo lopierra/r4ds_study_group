@@ -51,7 +51,24 @@ nycflights13::flights %>%
 This plot makes it more clear that cancelled flights tend to occur later
 in the day.
 
-> 2.  What variable in the diamonds dataset is most important for
+As mentioned during our meeting, frequency polygon or density plot would
+also be a good way to visualize this:
+
+``` r
+nycflights13::flights %>% 
+  mutate(
+    cancelled = is.na(dep_time),
+    sched_hour = sched_dep_time %/% 100,
+    sched_min = sched_dep_time %% 100,
+    sched_dep_time = sched_hour + sched_min / 60
+  ) %>% 
+  ggplot(mapping = aes(x=sched_dep_time, y = ..density..)) + 
+  geom_freqpoly(mapping = aes(colour = cancelled), binwidth = .5)
+```
+
+![](r4ds_week15_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
+
+> 2.  What variable in the `diamonds` dataset is most important for
 >     predicting the price of a diamond? How is that variable correlated
 >     with cut? Why does the combination of those two relationships lead
 >     to lower quality diamonds being more expensive?
@@ -74,7 +91,7 @@ diamonds %>%
   facet_wrap(~ variable, scales = "free")
 ```
 
-![](r4ds_week15_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
+![](r4ds_week15_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
 
 Also plot continuous variable (`carat`) vs. `price`:
 
@@ -87,7 +104,7 @@ diamonds %>%
 
     ## `geom_smooth()` using formula 'y ~ x'
 
-![](r4ds_week15_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
+![](r4ds_week15_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
 
 It looks like carat has the strongest relationship with price.
 
@@ -99,7 +116,7 @@ diamonds %>%
   geom_boxplot()
 ```
 
-![](r4ds_week15_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
+![](r4ds_week15_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->
 
 Looks like the diamonds with the worst cut (Fair) also tend to be the
 biggest (i.e. most expensive), so that explains why if you just plot cut
@@ -147,7 +164,7 @@ p1 + (p2 / p3 / p4)
 
     ## `geom_smooth()` using formula 'y ~ x'
 
-![](r4ds_week15_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->
+![](r4ds_week15_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
 
 > 3.  Install the ggstance package, and create a horizontal boxplot. How
 >     does this compare to using coord\_flip()?
@@ -173,7 +190,7 @@ diamonds %>%
   geom_bar()
 ```
 
-![](r4ds_week15_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
+![](r4ds_week15_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
 
 > 4.  One problem with boxplots is that they were developed in an era of
 >     much smaller datasets and tend to display a prohibitively large
@@ -188,6 +205,9 @@ need to have package {devtools} installed first.
 
 The statistical methods are described in the help (`?geom_lv`).
 
+It was pointed out during the meeting that the widest box in `geom_lv`
+corresponds to the IQR, which you can see by superimposing a boxplot.
+
 ``` r
 # install.packages("devtools")
 # devtools::install_github("hadley/lvplot")
@@ -196,10 +216,11 @@ library(lvplot)
 
 diamonds %>% 
   ggplot(aes(x = cut, y = price)) +
-  geom_lv(fill = "orange")
+  geom_lv(fill = "orange") +
+  geom_boxplot(alpha = 0.5)
 ```
 
-![](r4ds_week15_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
+![](r4ds_week15_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
 
 > 5.  Compare and contrast geom\_violin() with a facetted
 >     geom\_histogram(), or a coloured geom\_freqpoly(). What are the
@@ -218,7 +239,7 @@ diamonds %>%
 
     ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 
-![](r4ds_week15_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
+![](r4ds_week15_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
 
 A violin plot is like a boxplot that shows density. Violin plots and
 facetted histograms are better than freqpoly for comparing overall
@@ -230,7 +251,7 @@ diamonds %>%
   geom_violin()
 ```
 
-![](r4ds_week15_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
+![](r4ds_week15_files/figure-gfm/unnamed-chunk-11-1.png)<!-- -->
 
 ``` r
 diamonds %>% 
@@ -241,7 +262,19 @@ diamonds %>%
 
     ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 
-![](r4ds_week15_files/figure-gfm/unnamed-chunk-11-1.png)<!-- -->
+![](r4ds_week15_files/figure-gfm/unnamed-chunk-12-1.png)<!-- -->
+
+One of our study group participants mentioned that his favorite plot
+type is a dotplot. You can see the distribution and accurately read the
+y-axis without the randomness introduced by jittering.
+
+``` r
+ggplot(mpg,aes(class, hwy)) + 
+  geom_dotplot(binwidth = .3, binaxis='y', stackdir='center',
+               stackratio=1.5, dotsize=1.2)
+```
+
+![](r4ds_week15_files/figure-gfm/unnamed-chunk-13-1.png)<!-- -->
 
 > 6.  If you have a small dataset, it’s sometimes useful to use
 >     geom\_jitter() to see the relationship between a continuous and
@@ -273,7 +306,7 @@ diamonds %>%
   geom_quasirandom(alpha = 0.5)
 ```
 
-![](r4ds_week15_files/figure-gfm/unnamed-chunk-12-1.png)<!-- -->
+![](r4ds_week15_files/figure-gfm/unnamed-chunk-14-1.png)<!-- -->
 
 Unrelated to beeswarm plots -
 
@@ -292,4 +325,4 @@ diamonds %>%
   geom_jitter(alpha = 0.5, width = 0.2)
 ```
 
-![](r4ds_week15_files/figure-gfm/unnamed-chunk-13-1.png)<!-- -->
+![](r4ds_week15_files/figure-gfm/unnamed-chunk-15-1.png)<!-- -->
