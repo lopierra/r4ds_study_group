@@ -196,7 +196,7 @@ library(lvplot)
 
 diamonds %>% 
   ggplot(aes(x = cut, y = price)) +
-  geom_lv()
+  geom_lv(fill = "orange")
 ```
 
 ![](r4ds_week15_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
