@@ -162,8 +162,25 @@ pheatmap::pheatmap(heatmap_matrix)
 Or {superheat}:
 
 ``` r
+# add total flight count to heatmap_df for side plot
+
+heatmap_df2 <- nycflights13::flights %>% 
+  group_by(dest) %>% 
+  summarize(total_flights = n()) %>% 
+  inner_join(heatmap_df) %>% 
+  ungroup() %>% 
+  distinct(dest, total_flights)
+```
+
+    ## Joining, by = "dest"
+
+``` r
+# heatmap with rows ordered by total flight count
+# side plot shows total flight count
+
 superheat::superheat(heatmap_matrix,
-          row.dendrogram = TRUE)
+          order.rows = order(heatmap_df2$total_flights),
+          yr = heatmap_df2$total_flights)
 ```
 
 ![](r4ds_week16_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
