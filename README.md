@@ -10,14 +10,24 @@ Welcome to our *R for Data Science* Study Group!
 
 ---
 
+**Week 19** (week ending Aug 14):
+
+* Chap. 10 & first half of Chap. 11
+
+**Week 18** (week ending Aug 7):
+
+* Finish Chapter 7
+* Pierrette's notes are [here](https://github.com/ohsu-heme/r4ds_study_group/blob/master/r4ds_week18.md)
+
 **Week 17** (week ending July 31):
 
-* Continue working through Chapter 7
+* Chapter 7.5.2
+* Pierrette's notes are [here](https://github.com/ohsu-heme/r4ds_study_group/blob/master/r4ds_week16.md)
 
 **Week 16** (week ending July 24):
 
-* Chapter 7.5.1 - 7.5.2
-* Pierrette's notes are [here](https://github.com/ohsu-heme/r4ds_study_group/blob/master/r4ds_week15.md) through 7.5.1 and [here](https://github.com/ohsu-heme/r4ds_study_group/blob/master/r4ds_week16.md) for 7.5.2
+* Chapter 7.5.1
+* Pierrette's notes are [here](https://github.com/ohsu-heme/r4ds_study_group/blob/master/r4ds_week15.md)
 
 **Week 15** (week ending July 17):
 
