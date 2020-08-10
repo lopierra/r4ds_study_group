@@ -10,9 +10,13 @@ Welcome to our *R for Data Science* Study Group!
 
 ---
 
+**Week 20** (week ending Aug 21):
+
+* Chap. 9 (short intro), 10 (tibbles), and first couple sections of 11 (data import)
+
 **Week 19** (week ending Aug 14):
 
-* Chap. 10 & first half of Chap. 11
+* NO MEETING THIS WEEK
 
 **Week 18** (week ending Aug 7):
 
