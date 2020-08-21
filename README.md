@@ -13,6 +13,7 @@ Welcome to our *R for Data Science* Study Group!
 **Week 20** (week ending Aug 21):
 
 * Chap. 9 (short intro), 10 (tibbles), and first couple sections of 11 (data import)
+* Pierrette's notes are [here](https://github.com/ohsu-heme/r4ds_study_group/blob/master/r4ds_week20.md)
 
 **Week 19** (week ending Aug 14):
 
