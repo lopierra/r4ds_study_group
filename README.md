@@ -9,6 +9,17 @@ Welcome to our *R for Data Science* Study Group!
 * Other learning resources are here: https://github.com/ohsu-heme/r_learning_resources
 
 ---
+**Week 23** (week ending Sep 11):
+
+* Chap. 11
+
+**Week 22** (week ending Sep 4):
+
+* Informal drop-in and/or R/Medicine discussion (no R4DS this week)
+
+**Week 21** (week ending Aug 29):
+
+* NO MEETING THIS WEEK ([R/Medicine conference](https://events.linuxfoundation.org/r-medicine/program/schedule/))
 
 **Week 20** (week ending Aug 21):
 
