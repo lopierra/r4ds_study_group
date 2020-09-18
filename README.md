@@ -9,9 +9,14 @@ Welcome to our *R for Data Science* Study Group!
 * Other learning resources are here: https://github.com/ohsu-heme/r_learning_resources
 
 ---
+**Week 24** (week ending Sep 18):
+
+* Chap. 11.2
+* Pierrette's notes are [here](https://github.com/ohsu-heme/r4ds_study_group/blob/master/r4ds_week24.md)
+
 **Week 23** (week ending Sep 11):
 
-* Chap. 11
+* No meeting this week
 
 **Week 22** (week ending Sep 4):
 
