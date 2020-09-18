@@ -5,7 +5,6 @@ Pierrette Lo
 
   - [This week’s assignment](#this-weeks-assignment)
   - [Ch 11:2 Getting Started](#ch-112-getting-started)
-  - [Ch 11:3 Parsing a Vector](#ch-113-parsing-a-vector)
 
 ## This week’s assignment
 
@@ -31,9 +30,15 @@ lines of text/code.
 
 E.g. add bullets to this list:
 
-My list:
+    My list:
+    
+    Item 1
+    Item 2
+    Item 3
 
-Item 1 Item 2 Item 3
+Also off-topic: use `Ctrl/Cmd + I` to get nicely formatted code
+indentation. This is good practice as it will help you keep track of
+hierarchies in your code.
 
 On topic:
 
@@ -50,6 +55,11 @@ On topic:
   - Reminder to use `read_csv()` (with underscore - the tidyverse
     version) and not `read.csv` (with period - the base R version) for
     reasons explained in the text.
+
+  - You can also use the RStudio shortcut to import a dataset (by
+    clicking on a CSV file in the Files pane), but be sure to copy the
+    generated code into your script/notebook so you can remember later
+    where your data came from\!
 
 ### Exercises
 
@@ -224,41 +234,3 @@ read_csv2("a;b\n1;3")
     ##       a     b
     ##   <dbl> <dbl>
     ## 1     1     3
-
-## Ch 11:3 Parsing a Vector
-
-### Notes
-
-Off-topic, but these are my main uses for date format codes:
-
-``` r
-# get today's date
-
-Sys.Date()
-```
-
-    ## [1] "2020-09-18"
-
-``` r
-# today's date in different formats
-
-format(Sys.Date(), "%B %d, %Y")
-```
-
-    ## [1] "September 18, 2020"
-
-``` r
-format(Sys.Date(), "%m/%d/%y")
-```
-
-    ## [1] "09/18/20"
-
-``` r
-# write out a CSV file with today's date in the filename
-# paste0 collapses a series of strings/variables with no space between
-
-head(mtcars) %>% 
-  write_csv(paste0("mtcars_subset_", Sys.Date(), ".csv"))
-```
-
-### Exercises

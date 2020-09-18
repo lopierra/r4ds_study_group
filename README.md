@@ -9,6 +9,10 @@ Welcome to our *R for Data Science* Study Group!
 * Other learning resources are here: https://github.com/ohsu-heme/r_learning_resources
 
 ---
+**Week 25** (week ending Sep 25):
+
+* Chap. 11.3-4
+
 **Week 24** (week ending Sep 18):
 
 * Chap. 11.2
