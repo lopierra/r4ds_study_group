@@ -1,7 +1,7 @@
-R4DS Study Group - Week 24
+R4DS Study Group - Week 25
 ================
 Pierrette Lo
-9/18/2020
+9/25/2020
 
   - [This week’s assignment](#this-weeks-assignment)
   - [Ch 11:3 Parsing a Vector](#ch-113-parsing-a-vector)
