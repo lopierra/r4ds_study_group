@@ -12,6 +12,7 @@ Welcome to our *R for Data Science* Study Group!
 **Week 26** (week ending Oct 2):
 
 * Chap. 12 sections 1-5
+* Pierrette's notes are [here](https://github.com/ohsu-heme/r4ds_study_group/blob/master/r4ds_week26.md)
 
 **Week 25** (week ending Sep 25):
 
