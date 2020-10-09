@@ -9,7 +9,7 @@ Welcome to our *R for Data Science* Study Group!
 * Other learning resources are here: https://github.com/ohsu-heme/r_learning_resources
 
 ---
-**Week 27** (week ending Oct 16):
+**Week 28** (week ending Oct 16):
 
 * Finish Chap. 12.6 - end
 * Pierrette's notes are [here](https://github.com/ohsu-heme/r4ds_study_group/blob/master/r4ds_week28.md)
