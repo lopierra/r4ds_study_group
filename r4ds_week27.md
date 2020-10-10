@@ -122,14 +122,21 @@ tibble(x = c("a,b,c", "d,e", "f,g,i")) %>%
   - extract = split a column by using regular expressions to indicate
     what to capture (more flexible)
 
-green1 blue25 red2699
+E.g. imagine trying to separate the colors from numbers in a column like
+this:
 
-e.g. a column where the values are “green1”, “blue2”, “red3”, etc. -
-there isn’t a common separator or position number, so you can use regex
-to capture all of the alphabets
+    green1
+    blue25
+    red2699
 
-> Why are there three variations of separation (by position, by
-> separator, and with groups), but only one unite?
+There isn’t a common separator or position number, so you can’t use
+`separate()`. However, you could use `extract()` with regular
+expressions (more about this in
+[Chapter 14.3](https://r4ds.had.co.nz/strings.html#matching-patterns-with-regular-expressions))
+to capture “any number of alphabets before a digit”.
+
+> 4.  Why are there three variations of separation (by position, by
+>     separator, and with groups), but only one unite?
 
 There are different options for searching for separators to split up a
 column, but only one option is needed for merging a column.
