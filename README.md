@@ -9,9 +9,19 @@ Welcome to our *R for Data Science* Study Group!
 * Other learning resources are here: https://github.com/ohsu-heme/r_learning_resources
 
 ---
-**Week 29** (week ending Oct 23):
+**Week 31** (week ending Nov 6):
 
 * Chap. 13 through 13.4
+
+**Week 30** (week ending Oct 30):
+
+* NO MEETING
+* Alternate event: BioData Club African American Accomplishments data viz part 2 - 4-6 pm. Register [here](https://ohsu.ca1.qualtrics.com/jfe/form/SV_0TYUu2Gkg0vqIlf)
+
+**Week 29** (week ending Oct 23):
+
+* NO MEETING
+* Alternate event: BioData Club African American Accomplishments data viz part 1 - 4-6 pm. Register [here](https://ohsu.ca1.qualtrics.com/jfe/form/SV_6E8CSaqFE7gez9b) 
 
 **Week 28** (week ending Oct 16):
 
