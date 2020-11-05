@@ -11,7 +11,7 @@ Welcome to our *R for Data Science* Study Group!
 ---
 **Week 31** (week ending Nov 6):
 
-* Chap. 13 through 13.4
+* Chap. 13 through 13.3
 
 **Week 30** (week ending Oct 30):
 
