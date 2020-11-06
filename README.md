@@ -9,9 +9,15 @@ Welcome to our *R for Data Science* Study Group!
 * Other learning resources are here: https://github.com/ohsu-heme/r_learning_resources
 
 ---
+**Week 32** (week ending Nov 13):
+
+* Chap. 13.4 
+
+
 **Week 31** (week ending Nov 6):
 
 * Chap. 13 through 13.3
+* Pierrette's notes are [here](https://github.com/ohsu-heme/r4ds_study_group/blob/master/r4ds_week31.md)
 
 **Week 30** (week ending Oct 30):
 
