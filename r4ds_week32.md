@@ -4,7 +4,6 @@ Pierrette Lo
 11/13/2020
 
   - [This week’s assignment](#this-weeks-assignment)
-  - [Ch 13:4 Mutating joins](#ch-134-mutating-joins)
 
 ## This week’s assignment
 
@@ -17,7 +16,7 @@ library(tidyverse)
 library(nycflights13)
 ```
 
-## Ch 13:4 Mutating joins
+\= \#\# Ch 13:4 Mutating joins
 
 ### Exercises
 
@@ -160,13 +159,15 @@ flights %>%
 ![](r4ds_week32_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
 
 Looks like planes around 10 years old have the highest delays - not sure
-why??
+why? Maybe because older planes that aren’t functioning well get removed
+from service, so you’re selecting for the best ones. Or there are
+probably many other confounding factors that aren’t considered here.
 
 > 4.  What weather conditions make it more likely to see a delay?
 
   - Use inner join to only get rows that have both flight and weather
-    info (there are gaps in the weather dataset)
-  - Summarize delays and weather by time\_hour
+    info (since I noticed there are gaps in the weather dataset)
+  - Summarize delays and weather by `time_hour`
   - Pivot delays so I can look at any type of delay (either arr or dep)
   - Pivot weather so I can make a faceted plot
 
@@ -185,7 +186,7 @@ flights %>%
   pivot_longer(cols = ends_with("delay"),
                names_to = "delay_type",
                values_to = "delay") %>% 
-  pivot_longer(c(starts_with("avg")),
+  pivot_longer(cols = starts_with("avg"),
                names_to = "weather_metric",
                values_to = "weather_value") %>% 
   ggplot(aes(x = weather_value, y = delay)) +
@@ -205,8 +206,8 @@ flights %>%
 ![](r4ds_week32_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->
 
 Looks like precipitation has the greatest effect on delay. Wind speed
-also slightly increases delay. Not sure why increased visibility seems
-to decrease delays? Maybe it’s not significant.
+also slightly increases delay, but maybe it’s not significant. As
+expected, greater visibility decreases delay.
 
 > 5.  What happened on June 13 2013? Display the spatial pattern of
 >     delays, and then use Google to cross-reference with the weather.
@@ -222,8 +223,7 @@ flights %>%
             by = c("dest" = "faa")) %>% 
   select(dest, avg_delay, lat, lon) %>%
   ggplot(aes(x = lon, y = lat)) +
-  geom_point(aes(fill = avg_delay),
-             size = 3,
+  geom_point(aes(fill = avg_delay, size = avg_delay),
              shape = 21,
              color = "black") +
   borders("state") +
@@ -237,7 +237,7 @@ flights %>%
 
     ## `summarise()` ungrouping output (override with `.groups` argument)
 
-    ## Warning: Removed 5 rows containing missing values (geom_point).
+    ## Warning: Removed 8 rows containing missing values (geom_point).
 
 ![](r4ds_week32_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
 
