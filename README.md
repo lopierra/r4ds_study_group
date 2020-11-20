@@ -9,9 +9,20 @@ Welcome to our *R for Data Science* Study Group!
 * Other learning resources are here: https://github.com/ohsu-heme/r_learning_resources
 
 ---
+**Week 35** (week ending Dec 4):
+
+* Finish reading rest of Ch. 13 (no exercises)
+* Ch. 14 through 14.2
+* Start reading 14.3 (regular expressions) even if you don't have time to do the exercises, in case you have questions
+
+**Week 34** (week ending Nov 27):
+
+* No meeting - Happy Thanksgiving! 
+
 **Week 33** (week ending Nov 20):
 
-* Chap. 13.5 
+* Chap. 13.5
+* Pierrette's notes are [here](https://github.com/ohsu-heme/r4ds_study_group/blob/master/r4ds_week33.md)
 
 **Week 32** (week ending Nov 13):
 
