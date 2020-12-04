@@ -128,6 +128,25 @@ So our code above will still return a median of 3.5, and by default
 `str_sub` will convert that to 3. If you want to follow normal rounding
 rules, use `round()`.
 
+**Note:** R, like many programming languages, follows the [“round half
+to even”](https://en.wikipedia.org/wiki/Rounding#Round_half_to_even)
+rule, meaning that `x.5` will be rounded to the nearest even number. So
+`even.5` numbers will be rounded down, and `odd.5` numbers will rounded
+up. This is meant to prevent bias that would be introduced in large
+datasets where .5 is always rounded up.
+
+``` r
+round(2.5)
+```
+
+    ## [1] 2
+
+``` r
+round(3.5)
+```
+
+    ## [1] 4
+
 ``` r
 string6 <- "abcdef"
 
@@ -163,7 +182,8 @@ writeLines(string7)
     ## This chapter introduces you to string manipulation in R. You’ll learn the basics of how strings work and how to create them by hand, but the focus of this chapter will be on regular expressions, or regexps for short. Regular expressions are useful because strings usually contain unstructured or semi-structured data, and regexps are a concise language for describing patterns in strings. When you first look at a regexp, you’ll think a cat walked across your keyboard, but as your understanding improves they will soon start to make sense.
 
 ``` r
-writeLines(str_wrap(string7, width = 10, exdent = 3))
+#can use writeLines() or cat() here
+cat(str_wrap(string7, width = 10, exdent = 3))
 ```
 
     ## This
@@ -255,23 +275,63 @@ str_pad(string9, width = 8, pad = "#")
 
     ## [1] "###abcde"
 
+`str_squish` trims *and* removes interior repeated (i.e. \>1) spaces
+
+``` r
+str_squish(" a   b cde")
+```
+
+    ## [1] "a b cde"
+
 > 6.  Write a function that turns (e.g.) a vector `c("a", "b", "c")`
 >     into the string `a, b, and c`. Think carefully about what it
 >     should do if given a vector of length 0, 1, or 2.
 
-Look at some test cases before making a function:
+General format of a function:
 
 ``` r
-test_output <- str_c(c("a", "b", "c"), collapse = ", ")
+function_name <- function(arguments) {
+  body
+}
+```
 
-str_sub(test_output, -2, -2) <- " and "
+First figure out the steps manually for a simple test case:
 
-cat(test_output)
+``` r
+  test_output <- str_c(c("a", "b", "c"), collapse = ", ")
+  
+  str_sub(test_output, -2, -2) <- " and "
+  
+  cat(test_output)
 ```
 
     ## a, b, and c
 
-If you have a vector of 2, you don’t want to keep the comma:
+Then figure out the input that you would want to change each time, and
+make it into a function:
+
+``` r
+test_function <- function(input){
+  
+  test_output <- str_c(input, collapse = ", ")
+  
+  str_sub(test_output, -2, -2) <- " and "
+  
+  cat(test_output)
+  
+}
+```
+
+Test it with different cases to see what happens with exceptions:
+
+``` r
+test_function(c("b"))
+```
+
+    ##  and b
+
+Example exception: If you have a vector of 2, you don’t want to keep the
+comma:
 
 ``` r
 test_output <- str_c(c("a", "b"), collapse = ", ")
@@ -283,8 +343,8 @@ cat(test_output)
 
     ## a and b
 
-Now make a function, taking into account the special cases of vectors
-with length 0, 1, or 2
+Now add an if/else statement to your function to handle the special
+cases:
 
 ``` r
 make_string <- function(input) {
