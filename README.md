@@ -9,9 +9,15 @@ Welcome to our *R for Data Science* Study Group!
 * Other learning resources are here: https://github.com/ohsu-heme/r_learning_resources
 
 ---
+
+**Week 37** (week ending Dec 18):
+
+* Continue Ch. 14.3
+
 **Week 36** (week ending Dec 11):
 
 * Ch. 14.3
+* Pierrette's notes are [here](https://github.com/ohsu-heme/r4ds_study_group/blob/master/r4ds_week36.Rmd)
 
 **Week 35** (week ending Dec 4):
 

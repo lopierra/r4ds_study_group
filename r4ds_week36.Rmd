@@ -1,0 +1,151 @@
+---
+title: "R4DS Study Group - Week 36"
+author: Pierrette Lo
+date: 12/11/2020
+output: 
+  github_document:
+    toc: true
+    toc_depth: 2
+    html_preview: true
+editor_options: 
+  chunk_output_type: inline
+---
+
+```{r setup, include=FALSE, cache=FALSE}
+# allow code to show errors
+knitr::opts_chunk$set(error = TRUE)
+```
+
+## NOTE:
+
+I've uploaded the R Markdown document this week instead of the knitted HTML, because all of the slashes and special characters need even more escaping/special treatment when knitting, and I didn't have time to do all the mental gymnastics.
+
+## This week's assignment
+
+* Ch. 14.3
+
+```{r, warning=FALSE, message=FALSE}
+library(tidyverse)
+```
+
+## Ch 14:3 Regular expressions
+
+### Notes
+
+Regex -- and especially the concept of escaping -- can be super opaque for those of us who didn't come from a programming background. Your brain will eventually wrap itself around this after some practice - don't be discouraged!
+
+Here's an xkcd comic about how ridiculous the escaping is:
+
+![](https://imgs.xkcd.com/comics/backslashes.png)
+
+Tips:
+
+* The {stringr} [cheat sheet](https://github.com/rstudio/cheatsheets/raw/master/strings.pdf) is super handy
+* There are some handy websites for testing regexps before incorporating them into your R code (google "regex tester"). I like https://regex101.com/. You type in your regex, and your sample text, and it will highlight the sample text according to your regex, so you can see if it's working correctly and fix it if it's not. 
+
+Note that if you're using regexes on the command line or in a regex tester, where the regex is directly part of the code, you only need to use one backslash. In R, because you have to wrap the regex in quotes and use it as a string, you need two backslashes.
+
+Also, if you (or your kids!) are interested in some fun, language-agnostic coding puzzles:
+
+https://regexcrossword.com/
+
+https://adventofcode.com/2020
+
+### Exercises
+
+#### 14.3.1.1
+
+>1. Explain why each of these strings don’t match a \: "\", "\\", "\\\".
+
+"\" = R thinks you're trying to escape the "
+"\\" = escaped literal slash - matches \ (works directly in regex tester, but not as a string in R)
+"\\\" = only one of the slashes is escaped - need to escape both of them (again, R thinks that last slash is escaping the ")
+"\\\\" = this string will match a \
+
+>2. How would you match the sequence "'\ ?
+
+First, note that there are special characters that need to be escaped even when they're just part of a string (not a regex) - see ?"'" for a list.
+
+" and \ have special functions in strings, and thus need to be escaped with a slash (' does not need to be escaped when it's inside ""; " does not need to be escaped when it's inside '')
+
+So saving this sequence as a string would look like this:
+
+```{r}
+test_string <- "\"'\\"
+
+writeLines(test_string)
+```
+
+Now to build a regex to match this string, we will need to double-escape each slash (\\).   
+
+```{r}
+str_view(test_string, "\\\"'\\\\")
+```
+
+>3. What patterns will the regular expression \..\..\.. match? How would you represent it as a string?
+
+This regex will match a 6-character string with 3 periods each followed by any character (try it in a regex tester).
+
+To represent it as a string in R, you have to double-escape the periods that represent literal periods, but you don't have to escape the periods that represent "any character".
+
+```{r}
+test_string <- "123.a.b.c.456"
+
+writeLines(test_string)
+
+str_view(test_string, "\\..\\..\\..")
+```
+
+
+#### 14.3.2.1
+
+>1. How would you match the literal string "$^$"?
+
+Try this in a regex tester as well.
+
+```{r}
+test_string <- "$^$"
+
+writeLines(test_string)
+
+str_view(test_string, "\\$\\^\\$")
+```
+
+>2. Given the corpus of common words in `stringr::words`, create regular expressions that find all words that: (Since this list is long, you might want to use the `match` argument to `str_view()` to show only the matching or non-matching words.)
+
+Start with “y”. [show where to find things on the cheat sheet]
+
+```{r}
+head(words)
+tail(words)
+
+#output looks better if you use the Console
+str_view(words, "^y", match = TRUE)
+```
+
+End with “x”
+
+```{r}
+str_view(words, "x$", match = TRUE)
+```
+
+Are exactly three letters long. (Don’t cheat by using `str_length()`!)
+
+```{r}
+# using only what we've learned so far
+str_view(words, "^...$", match = TRUE)
+
+# alternate method that specifies only letters
+str_view(words, "^[:alpha:]{3}$", match = TRUE)
+```
+
+Have seven letters or more.
+
+```{r}
+str_view(words, ".......", match = TRUE)
+
+# or
+str_view(words, "[:alpha:]{7}", match = TRUE)
+```
+
+
