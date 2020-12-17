@@ -1,7 +1,7 @@
 ---
-title: "R4DS Study Group - Week 36"
+title: "R4DS Study Group - Week 37"
 author: Pierrette Lo
-date: 12/11/2020
+date: 12/18/2020
 output: 
   github_document:
     toc: true
@@ -41,7 +41,8 @@ Here's an xkcd comic about how ridiculous the escaping is:
 Tips:
 
 * The {stringr} [cheat sheet](https://github.com/rstudio/cheatsheets/raw/master/strings.pdf) is super handy
-* There are some handy websites for testing regexps before incorporating them into your R code (google "regex tester"). I like https://regex101.com/. You type in your regex, and your sample text, and it will highlight the sample text according to your regex, so you can see if it's working correctly and fix it if it's not. 
+* There are some handy websites for testing regexes before incorporating them into your R code (google "regex tester"). I like https://regex101.com/. You type in your regex, and your sample text, and it will highlight the sample text according to your regex, so you can see if it's working correctly and fix it if it's not.
+* Searching with regexes is as much about excluding things you *don't* want to match as it is about including things you want to find. It is helpful to start by scrolling through your data to identify exceptions, weird cases, etc.
 
 Note that if you're using regexes on the command line or in a regex tester, where the regex is directly part of the code, you only need to use one backslash. In R, because you have to wrap the regex in quotes and use it as a string, you need two backslashes.
 
@@ -71,7 +72,7 @@ First, note that there are special characters that need to be escaped even when 
 So saving this sequence as a string would look like this:
 
 ```{r}
-test_string <- "\"'\\"
+test_string <- "\"'\\"      
 
 writeLines(test_string)
 ```
@@ -113,7 +114,7 @@ str_view(test_string, "\\$\\^\\$")
 
 >2. Given the corpus of common words in `stringr::words`, create regular expressions that find all words that: (Since this list is long, you might want to use the `match` argument to `str_view()` to show only the matching or non-matching words.)
 
-Start with “y”. [show where to find things on the cheat sheet]
+>Start with “y”. [show where to find things on the cheat sheet]
 
 ```{r}
 head(words)
@@ -123,13 +124,13 @@ tail(words)
 str_view(words, "^y", match = TRUE)
 ```
 
-End with “x”
+>End with “x”
 
 ```{r}
 str_view(words, "x$", match = TRUE)
 ```
 
-Are exactly three letters long. (Don’t cheat by using `str_length()`!)
+>Are exactly three letters long. (Don’t cheat by using `str_length()`!)
 
 ```{r}
 # using only what we've learned so far
@@ -139,7 +140,7 @@ str_view(words, "^...$", match = TRUE)
 str_view(words, "^[:alpha:]{3}$", match = TRUE)
 ```
 
-Have seven letters or more.
+>Have seven letters or more.
 
 ```{r}
 str_view(words, ".......", match = TRUE)
@@ -148,4 +149,148 @@ str_view(words, ".......", match = TRUE)
 str_view(words, "[:alpha:]{7}", match = TRUE)
 ```
 
+#### 14.3.3.1
+
+>1. Create regular expressions to find all words that:
+
+>Start with a vowel.
+
+Here's a way to subset a vector to get only the words that meet the criteria, and take a random sample of 20:
+
+```{r}
+str_subset(words, "^[aeiou]") %>% 
+  sample(20)
+```
+
+>That only contain consonants. (Hint: thinking about matching “not”-vowels.)
+
+```{r}
+str_subset(words, "[aeiou]", negate = TRUE)
+```
+
+>End with ed, but not with eed.
+
+```{r}
+str_subset(words, "[^e]ed$")
+```
+
+>End with ing or ise.
+
+```{r}
+str_subset(words, "i(ng|se)$")
+```
+
+>2. Empirically verify the rule “i before e except after c”.
+
+There are a couple of exceptions to the rule!
+
+```{r}
+str_subset(words, "cie")
+```
+
+>3. Is “q” always followed by a “u”?
+
+Yes, at least in this particular list of words.
+
+```{r}
+str_subset(words, "q[^u]")
+```
+
+>4. Write a regular expression that matches a word if it’s probably written in British English, not American English.
+
+Also Canadian English! e.g. 
+
+* ends with "our" ("colour" instead of "color")
+* ends with "ise" ("synthesise" instead of "synthesize")
+
+```{r}
+str_subset(words, "our$|ise$")
+```
+
+>5. Create a regular expression that will match telephone numbers as commonly written in your country.
+
+Criteria: groups of 3, 3, and 4 digits; doesn't start with 0 or 1
+
+```{r}
+test <- c("503-555-1234", "(503) 987-6543", "5032468100", "5035-2334-87", "a23-456-7890", "123-456-7890")
+
+str_view_all(test, ".*[2-9]\\d{2}.*\\d{3}.*\\d{4}",
+             match = TRUE)
+```
+
+#### 14.3.4.1
+
+>1. Describe the equivalents of ?, +, * in {m,n} form.
+
+? = {0,1}
++ = {1, }
+* = {0, }
+
+>2. Describe in words what these regular expressions match: (read carefully to see if I’m using a regular expression or a string that defines a regular expression.)
+
+^.*$ = any string with 0 or more of any character
+
+"\\{.+\\}" = 1 or more of any character, surrounded by curly brackets
+
+\d{4}-\d{2}-\d{2} = four numbers, hyphen, two numbers, hyphen, two numbers
+
+"\\\\{4}" = four slashes
+
+>3. Create regular expressions to find all words that:
+
+>Start with three consonants.
+
+```{r}
+str_subset(words, "^[^aeiou]{3}")
+```
+
+>Have three or more vowels in a row.
+
+```{r}
+str_subset(words, "[aeiou]{3,}")
+```
+
+>Have two or more vowel-consonant pairs in a row.
+
+```{r}
+str_subset(words, "([aeiou][^aeiou]){2,}")
+```
+
+>4. Solve the beginner regexp crosswords at https://regexcrossword.com/challenges/beginner.
+
+#### 14.3.5.1
+
+>1. Describe, in words, what these expressions will match:
+
+(.)\1\1 = any character, 3 times in a row (e.g. "aaa")
+
+"(.)(.)\\2\\1" = character 1, character 2, character 2, character 1 (e.g. "abba")
+
+(..)\1 = pair of characters, twice (e.g. "abab")
+
+"(.).\\1.\\1" = character 1, character 2, char 1, char 3, char 1 (e.g. "abaca") 
+
+"(.)(.)(.).*\\3\\2\\1" = char 1, char 2, char 3, char 4 (0 or more), char 3, char 2, char 1 (e.g. "abccba" or "abcdddcba")
+
+>2. Construct regular expressions to match words that:
+
+>Start and end with the same character.
+
+Note - I used "." here since the `words` dataset only contains letters, but you would want to be more precise ("[A-Za-z]" or "[:alpha:]") in other datasets that also include numbers or characters. 
+
+```{r}
+str_subset(words, "^(.).*\\1$")
+```
+
+>Contain a repeated pair of letters (e.g. “church” contains “ch” repeated twice.)
+
+```{r}
+str_subset(words, "(..).*\\1")
+```
+
+>Contain one letter repeated in at least three places (e.g. “eleven” contains three “e”s.)
+
+```{r}
+str_subset(words, "(.).*\\1.*\\1")
+```
 
