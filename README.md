@@ -10,6 +10,19 @@ Welcome to our *R for Data Science* Study Group!
 
 ---
 
+**Week 40** (week ending Jan 8):
+
+* Continue Ch. 14.3
+* Pierrette's notes are [here](https://github.com/ohsu-heme/r4ds_study_group/blob/master/r4ds_week36.Rmd)
+
+**Week 39** (week ending Dec 31):
+
+* No meeting - Happy New Year!
+
+**Week 38** (week ending Dec 25):
+
+* No meeting - Happy holidays!
+
 **Week 37** (week ending Dec 18):
 
 * Ch. 14.3
