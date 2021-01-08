@@ -28,7 +28,7 @@ I've uploaded the R Markdown document this week instead of the knitted HTML, bec
 library(tidyverse)
 ```
 
-## Ch 14:3 Regular expressions
+## Ch 14\.3 Regular expressions
 
 ### Notes
 
@@ -202,20 +202,21 @@ Also Canadian English! e.g.
 
 * ends with "our" ("colour" instead of "color")
 * ends with "ise" ("synthesise" instead of "synthesize")
+* ends with "tre" ("centre" instead of "center")
 
 ```{r}
-str_subset(words, "our$|ise$")
+str_subset(words, "our$|ise$|tre$")
 ```
+You end up catching several words that are not just British (e.g. raise, hour), but you can at least narrow down the large dataset to something you can easily go through manually.
 
 >5. Create a regular expression that will match telephone numbers as commonly written in your country.
 
 Criteria: groups of 3, 3, and 4 digits; doesn't start with 0 or 1
 
 ```{r}
-test <- c("503-555-1234", "(503) 987-6543", "5032468100", "5035-2334-87", "a23-456-7890", "123-456-7890")
+test <- c("503-555-1234", "(503) 987-6543", "5032468100", "5035-2334-87", "a23-456-7890", "123-456-7890", "(503)236-5555")
 
-str_view_all(test, ".*[2-9]\\d{2}.*\\d{3}.*\\d{4}",
-             match = TRUE)
+str_subset(test, ".*[2-9]\\d{2}.*\\d{3}.*\\d{4}")
 ```
 
 #### 14.3.4.1
@@ -228,7 +229,7 @@ str_view_all(test, ".*[2-9]\\d{2}.*\\d{3}.*\\d{4}",
 
 >2. Describe in words what these regular expressions match: (read carefully to see if I’m using a regular expression or a string that defines a regular expression.)
 
-^.*$ = any string with 0 or more of any character
+^.*$ = starts with any string with 0 or more of any character, then ends
 
 "\\{.+\\}" = 1 or more of any character, surrounded by curly brackets
 
