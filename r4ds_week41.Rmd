@@ -1,0 +1,246 @@
+---
+title: "R4DS Study Group - Week 41"
+author: Pierrette Lo
+date: 1/15/2021
+output: 
+  github_document:
+    toc: true
+    toc_depth: 2
+    html_preview: true
+editor_options: 
+  chunk_output_type: inline
+---
+
+```{r setup, include=FALSE, cache=FALSE}
+# allow code to show errors
+knitr::opts_chunk$set(error = TRUE)
+```
+
+## This week's assignment
+
+* Chapter 14.4
+
+```{r, warning=FALSE, message=FALSE}
+library(tidyverse)
+```
+
+## Chapter 14\.4 Tools
+
+### 14\.4\.1\.1 Detect matches
+
+>1. For each of the following challenges, try solving it by using both a single regular expression, and a combination of multiple str_detect() calls.
+
+>Find all words that start or end with x.
+
+I subbed "a" for "x" below, as there are no words in this dataset that start with x.
+
+```{r}
+str_subset(words, "^a|a$")
+
+words[str_detect(words, "^a") | str_detect(words, "a$")]
+```
+
+>Find all words that start with a vowel and end with a consonant.
+
+```{r}
+str_subset(words, "^[aeiou].*[^aeiou]$")
+
+words[str_detect(words, "^[aeiou]") & str_detect(words, "[^aeiou]$")]
+```
+
+>Are there any words that contain at least one of each different vowel?
+
+There isn't a simple way to do this using regexes.
+
+```{r}
+words[str_detect(words, "a") &
+        str_detect(words, "e") &
+        str_detect(words, "i") &
+        str_detect(words, "o") &
+        str_detect(words, "u")]
+```
+
+Apparently there are no such words in this dataset.. but examples would include "facetious", "abstemious", and "sequoia".
+
+>2. What word has the highest number of vowels? What word has the highest proportion of vowels? (Hint: what is the denominator?)
+
+```{r}
+vowel_counts <- str_count(words, "[aeiou]")
+
+vowel_props <- vowel_counts / str_count(words, "")
+
+words[vowel_counts == max(vowel_counts)]
+
+words[vowel_props == max(vowel_props)]
+```
+
+Alternate method (probably more likely to be used with "real life" data):
+
+```{r}
+words_df <- words %>% 
+  as_tibble_col(column_name = "word") %>% 
+  mutate(vowel_count = str_count(word, "[aeiou]"),
+         vowel_prop = vowel_count / str_count(word, ""))
+
+words_df %>% 
+  slice_max(vowel_count)
+
+words_df %>% 
+  slice_max(vowel_prop)
+```
+
+### 14\.4\.2\.1 Extract matches
+
+>1. In the previous example, you might have noticed that the regular expression matched “flickered”, which is not a colour. Modify the regex to fix the problem.
+
+You only want to match "red" as a complete word (i.e. not words like "flickeRED" or "REDuce"), so you need to use \b to indicate word boundaries around the pattern:
+
+```{r}
+colours2 <- c("red", "orange", "yellow", "green", "blue", "purple")
+
+colour_match2 <- str_c("\\b", str_c(colours2, collapse = "|"), "\\b")
+
+sentences %>% 
+  str_subset(colour_match2)
+```
+
+>2. From the Harvard sentences data, extract:
+
+>The first word from each sentence.
+
+Regex: one or more alphabets or "word characters" (letter, digit, or underscore)
+
+```{r}
+# match one or more alphabets - NOTE that this doesn't catch words with apostrophes, like "It's"
+sentences %>% 
+  str_extract("[:alpha:]+")
+
+# match one or more "word characters" - also doesn't match apostrophe
+sentences %>% 
+  str_extract("\\w+")
+
+# use the tidyverse shortcut - does match apostrophe
+sentences %>% 
+  str_extract(boundary("word"))
+```
+
+>All words ending in ing.
+
+Using the pattern "ing$" in the `words` dataset will find words ending with -ing, but the "ends with" doesn't work with `sentences` -- we need to account for word boundaries instead.
+
+```{r}
+words %>% 
+  str_subset("ing$")
+
+# match one or more alphabet, followed by ing, surrounded by word boundaries
+# first get the whole sentences containing that pattern
+# then extract the words
+sentences %>% 
+  str_subset("\\b[:alpha:]+ing\\b") %>% 
+  str_extract_all("\\b[:alpha:]+ing\\b", simplify = TRUE)
+```
+
+>All plurals.
+
+Start by matching words ending with "s" - but need to account for exceptions like "is", "was", etc. You can filter out some of those by matching words with >3 letters, but this isn't a complete solution (doesn't catch verbs like "makes" or words with "ss" like "across"). You should use text mining/NLP packages if you really need to do a rigorous grammatical analysis. 
+
+```{r}
+sentences %>% 
+  str_subset("\\b[:alpha:]{4,}s\\b") %>% 
+  str_extract_all("\\b[:alpha:]{4,}s\\b", simplify = TRUE)
+```
+
+### 14.4.3.1 Grouped matches
+
+>1. Find all words that come after a “number” like “one”, “two”, “three” etc. Pull out both the number and the word.
+
+For simplicity, I stuck to numbers 1 through 10.
+
+```{r}
+# start with word boundary (so you don't match words like "tONE")
+num_match <- "\\b(one|two|three|four|five|six|seven|eight|nine|ten) +(\\w+)"
+
+sentences %>% 
+  str_subset(num_match) %>% 
+  str_extract(num_match)
+```
+
+>2. Find all contractions. Separate out the pieces before and after the apostrophe.
+
+Use parentheses to designate groups, and `str_match_all()` to extract those groups:
+
+```{r}
+sentences %>% 
+  str_subset("'") %>% 
+  str_match_all("(\\w+)'(\\w+)")
+```
+
+### 14\.4\.4\.1 Replacing matches
+
+>1. Replace all forward slashes in a string with backslashes.
+
+Remember you need to use `writeLines()` to see the printed string without the escaping slashes.
+
+```{r}
+test_string <- "for/ward//slash/"
+
+str_replace_all(test_string, "/", "\\\\") %>% 
+  writeLines()
+```
+
+>2. Implement a simple version of str_to_lower() using replace_all().
+
+`str_to_lower()` makes all of the letters in a string lower-case.
+
+The long way to do this would be to create a named vector of replacements (I only did "A" and "R", due to laziness): 
+
+```{r}
+test_string <- "cApItAl lEtTeRs"
+
+replacements <- c("A" = "a",
+                  "R" = "r")
+
+str_replace_all(test_string, replacements)
+```
+
+>3. Switch the first and last letters in `words`. Which of those strings are still words?
+
+```{r}
+replaced_words <- words %>%
+  str_replace("^(.)(.*)(.)$", "\\3\\2\\1")
+
+str_subset(words, replaced_words)
+```
+
+### 14\.4\.5\.1 Splitting
+
+>1. Split up a string like "apples, pears, and bananas" into individual components.
+
+```{r}
+test_string <- "apples, pears, and bananas"
+
+str_split(test_string, ", (and)?")
+```
+
+>2. Why is it better to split up by boundary("word") than " "?
+
+`boundary("word")` handles punctuation, like commas or periods.
+
+```{r}
+test_string <- "Apples, pears, and bananas."
+
+str_split(test_string, " ")
+
+str_split(test_string, boundary("word"))
+```
+
+>3. What does splitting with an empty string ("") do? Experiment, and then read the documentation.
+
+"" is equivalent to `boundary("character")`
+
+```{r}
+test_string <- "Apples, pears, and bananas."
+
+str_split(test_string, "")
+```
+

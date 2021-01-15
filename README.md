@@ -10,9 +10,14 @@ Welcome to our *R for Data Science* Study Group!
 
 ---
 
+**Week 42** (week ending Jan 22):
+
+* Finish Chapter 14
+
 **Week 41** (week ending Jan 15):
 
 * Ch. 14.4
+* Pierrette's notes are [here](https://github.com/ohsu-heme/r4ds_study_group/blob/master/r4ds_week41.Rmd)
 
 **Week 40** (week ending Jan 8):
 
