@@ -53,6 +53,10 @@ words[str_detect(words, "^[aeiou]") & str_detect(words, "[^aeiou]$")]
 There isn't a simple way to do this using regexes.
 
 ```{r}
+str_subset(words, "(?=.*a)(?=.*e)(?=.*i)(?=.*o)(?=.*u)")
+```
+
+```{r}
 words[str_detect(words, "a") &
         str_detect(words, "e") &
         str_detect(words, "i") &
@@ -98,10 +102,11 @@ You only want to match "red" as a complete word (i.e. not words like "flickeRED"
 ```{r}
 colours2 <- c("red", "orange", "yellow", "green", "blue", "purple")
 
-colour_match2 <- str_c("\\b", str_c(colours2, collapse = "|"), "\\b")
+colour_match2 <- str_c("\\b(", str_c(colours2, collapse = "|"), ")\\b")
 
 sentences %>% 
-  str_subset(colour_match2)
+  str_subset(colour_match2) %>% 
+  str_match_all(colour_match2)
 ```
 
 >2. From the Harvard sentences data, extract:
@@ -243,4 +248,78 @@ test_string <- "Apples, pears, and bananas."
 
 str_split(test_string, "")
 ```
+
+### 14.5.1 Other types of pattern
+
+>1. How would you find all strings containing `\` with `regex()` vs. with `fixed()`?
+
+```{r}
+test_string <- "this\\sentence\\has\\slashes"
+
+writeLines(test_string)
+
+# with usual regex()
+str_view_all(test_string, "\\\\")
+
+# with fixed()
+str_view_all(test_string, fixed("\\"))
+```
+
+>2. What are the five most common words in sentences?
+
+```{r}
+sentences %>% 
+  str_extract_all(boundary("word")) %>% 
+  unlist() %>% 
+  as_tibble_col(column_name = "word") %>% 
+  mutate(word = tolower(word)) %>% 
+  # remember count() = group_by() %>% summarize()
+  count(word, sort = TRUE) %>% 
+  slice(1:5)
+```
+
+If you're working with an actual piece of text, I would use the {tidytext} text mining package instead.
+
+More info about {tidytext}, which is very fun to play with: https://www.tidytextmining.com/index.html
+
+```{r}
+# install.packages("tidytext")
+library(tidytext)
+
+sentences %>%
+  as_tibble_col(column_name = "sentence") %>% 
+  # tolower by default
+  unnest_tokens(output = word,
+                input = sentence) %>% 
+  count(word, sort = TRUE)
+```
+
+### 14.7.1 stringi
+
+>1. Find the stringi functions that:
+
+The base {stringi} functions are listed in the help for each {stringr} function (or you can just Google).
+
+To get a list of {stringr} functions, start typing "str_" into the console or a code chunk.
+
+>Count the number of words.
+
+Look at the help for `str_count()` -> `stringi::stri_count()`
+
+>Find duplicated strings.
+
+`str_dup()` -> `stri_duplicated()`
+
+>Generate random text.
+
+For some reason this function doesn't have an equivalent in {stringr}, so it doesn't get automatically loaded when you load {tidyverse} - need to load the {stringi} package directly.
+
+```{r}
+stringi::stri_rand_strings(4, 5)
+```
+
+>2. How do you control the language that stri_sort() uses for sorting?
+
+Use the `locale` argument of `stri_opts_collator()` (per the help, you can use the `stri_opts_collator` arguments directly in `stri_sort`).
+
 
