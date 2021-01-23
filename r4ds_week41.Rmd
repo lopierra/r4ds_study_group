@@ -175,9 +175,24 @@ sentences %>%
 Use parentheses to designate groups, and `str_match_all()` to extract those groups:
 
 ```{r}
-sentences %>% 
+matches <- sentences %>% 
   str_subset("'") %>% 
   str_match_all("(\\w+)'(\\w+)")
+```
+
+`str_match_all` returns a list of matrices. It's a bit complicated to convert to a tibble, but here is one method:
+
+```{r}
+matches %>% 
+  # enframe() converts each list element to a nested column called "value", where each row is a character vector
+  # the "name" column is the name of each list element, which in this case was numbered
+  enframe() %>%
+  # use the purrr::map() function with setNames to add names to each element of the vector in each row
+  mutate(value = map(value, setNames, c("full_word", "part1", "part2"))) %>% 
+  # unnest_wider() splits each vector in the "value" column into 3 columns, with names as set above  
+  unnest_wider(value) %>%  
+  # remove the "name" column
+  select(-name)
 ```
 
 ### 14\.4\.4\.1 Replacing matches
@@ -188,6 +203,8 @@ Remember you need to use `writeLines()` to see the printed string without the es
 
 ```{r}
 test_string <- "for/ward//slash/"
+
+writeLines(test_string)
 
 str_replace_all(test_string, "/", "\\\\") %>% 
   writeLines()
@@ -213,6 +230,8 @@ str_replace_all(test_string, replacements)
 ```{r}
 replaced_words <- words %>%
   str_replace("^(.)(.*)(.)$", "\\3\\2\\1")
+
+# this search pattern also works: "(^.)(.*)(.$)"
 
 str_subset(words, replaced_words)
 ```
@@ -273,7 +292,7 @@ sentences %>%
   unlist() %>% 
   as_tibble_col(column_name = "word") %>% 
   mutate(word = tolower(word)) %>% 
-  # remember count() = group_by() %>% summarize()
+  # remember count() = group_by() %>% summarize(n = n())
   count(word, sort = TRUE) %>% 
   slice(1:5)
 ```
@@ -290,8 +309,10 @@ sentences %>%
   as_tibble_col(column_name = "sentence") %>% 
   # tolower by default
   unnest_tokens(output = word,
-                input = sentence) %>% 
+                input = sentence) %>%
+  anti_join(stop_words) %>% 
   count(word, sort = TRUE)
+
 ```
 
 ### 14.7.1 stringi

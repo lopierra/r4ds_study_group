@@ -10,16 +10,26 @@ Welcome to our *R for Data Science* Study Group!
 
 ---
 
+**Week 44** (week ending Feb 5):
+
+* Chapter 15 (Factors)
+
+**Week 43** (week ending Jan 29):
+
+* No R4DS this week - open time for other R topics
+* Start reading Chapter 15 (Factors)
+
 **Week 42** (week ending Jan 22):
 
 * Finish Chapter 14
+* Pierrette's updated notes are [here](https://github.com/ohsu-heme/r4ds_study_group/blob/master/r4ds_week41.Rmd)
 
 **Week 41** (week ending Jan 15):
 
 * Ch. 14.4
 * Pierrette's notes are [here](https://github.com/ohsu-heme/r4ds_study_group/blob/master/r4ds_week41.Rmd)
 
-**Week 40** (week ending Jan 8):
+**Week 40** (week ending Jan 8, 2021):
 
 * Finish Ch. 14.3
 * Pierrette's notes are [here](https://github.com/ohsu-heme/r4ds_study_group/blob/master/r4ds_week36.Rmd)
