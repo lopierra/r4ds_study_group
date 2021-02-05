@@ -198,6 +198,30 @@ fct_count(gss_cat$partyid, sort = TRUE)
 Table method:
 
 ``` r
+denominations <- gss_cat %>%
+  select (relig, denom) %>%   filter(!denom %in% c(
+    "No answer", "Other", "Don't know", "Not applicable",
+    "No denomination"
+  )) %>% count(relig, denom)
+denominations
+```
+
+    ## # A tibble: 25 x 3
+    ##    relig      denom                    n
+    ##    <fct>      <fct>                <int>
+    ##  1 Protestant Episcopal              397
+    ##  2 Protestant Presbyterian-dk wh     244
+    ##  3 Protestant Presbyterian, merged    67
+    ##  4 Protestant Other presbyterian      47
+    ##  5 Protestant United pres ch in us   110
+    ##  6 Protestant Presbyterian c in us   104
+    ##  7 Protestant Lutheran-dk which      267
+    ##  8 Protestant Evangelical luth       122
+    ##  9 Protestant Other lutheran          30
+    ## 10 Protestant Wi evan luth synod      71
+    ## # ... with 15 more rows
+
+``` r
 #check levels of denom
 
 levels(gss_cat$denom)
@@ -252,13 +276,12 @@ Visual method:
 
 ``` r
 gss_cat %>% 
-  count(relig, denom) %>% 
-  ggplot(aes(x = relig, y = denom, size = n)) + 
+  ggplot(aes(x = relig, y = denom)) + 
   geom_point() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 ```
 
-![](r4ds_week44_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
+![](r4ds_week44_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
 
 ### Exercises 15.4.1 (Modifying factor order)
 
@@ -270,6 +293,8 @@ in this case there doesn’t seem to be a huge difference between mean
 (2.98) and median (2).
 
 ``` r
+# look at distribution
+
 gss_cat %>% 
   ggplot(aes(tvhours)) +
   geom_histogram(binwidth = 1)
@@ -277,19 +302,16 @@ gss_cat %>%
 
     ## Warning: Removed 10146 rows containing non-finite values (stat_bin).
 
-![](r4ds_week44_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
+![](r4ds_week44_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
 
 ``` r
-mean(gss_cat$tvhours, na.rm = TRUE)
+# check mean & median
+
+summary(gss_cat$tvhours)
 ```
 
-    ## [1] 2.980771
-
-``` r
-median(gss_cat$tvhours, na.rm = TRUE)
-```
-
-    ## [1] 2
+    ##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
+    ##   0.000   1.000   2.000   2.981   4.000  24.000   10146
 
 > 2.  For each factor in gss\_cat identify whether the order of the
 >     levels is arbitrary or principled.
@@ -422,8 +444,8 @@ levels(gss_cat$marital)
     ## [1] "No answer"     "Never married" "Separated"     "Divorced"     
     ## [5] "Widowed"       "Married"
 
-Here’s what the first 10 rows of the factor variable `race` looks like
-to R:
+Here’s what the first 10 rows of the factor variable `marital` looks
+like to R:
 
 ``` r
 unclass(gss_cat$marital) %>% 
@@ -453,6 +475,8 @@ for details.
   - `fct_other` = collapse multiple specified levels into a single level
   - `fct_lump` = collapse multiple levels based on frequency
   - `fct_recode` = change specified levels manually
+  - `fct_collapse` = collapse levels into multiple manually specified
+    groups
 
 > 1.  How have the proportions of people identifying as Democrat,
 >     Republican, and Independent changed over time?
@@ -481,10 +505,11 @@ gss_cat %>%
     geom_line()
 ```
 
-![](r4ds_week44_files/figure-gfm/unnamed-chunk-15-1.png)<!-- -->
+![](r4ds_week44_files/figure-gfm/unnamed-chunk-16-1.png)<!-- -->
 
 You could also use `mutate` and `str_detect` to add a meta-category and
-save a lot of typing:
+save a lot of typing (unfortunately I couldn’t find a way to use
+`str_detect` with `fct_collapse`):
 
 ``` r
 gss_cat %>% 
@@ -497,9 +522,9 @@ gss_cat %>%
     geom_line()
 ```
 
-![](r4ds_week44_files/figure-gfm/unnamed-chunk-16-1.png)<!-- -->
+![](r4ds_week44_files/figure-gfm/unnamed-chunk-17-1.png)<!-- -->
 
-> 2.  How could you collapse rincome into a small set of categories?
+> 2.  How could you collapse `rincome` into a small set of categories?
 
 Not sure what is meant by “small” - you could use the above method to
 define high/medium/low/other categories. Or, my lazy response of 2
@@ -526,4 +551,4 @@ gss_cat %>%
     geom_bar()
 ```
 
-![](r4ds_week44_files/figure-gfm/unnamed-chunk-17-1.png)<!-- -->
+![](r4ds_week44_files/figure-gfm/unnamed-chunk-18-1.png)<!-- -->
