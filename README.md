@@ -9,6 +9,9 @@ Welcome to our *R for Data Science* Study Group!
 * Other learning resources are here: https://github.com/ohsu-heme/r_learning_resources
 
 ---
+**Week 45** (week ending Feb 12):
+
+* Chapter 16 (Dates and times)
 
 **Week 44** (week ending Feb 5):
 
