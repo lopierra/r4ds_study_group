@@ -13,6 +13,7 @@ Welcome to our *R for Data Science* Study Group!
 **Week 44** (week ending Feb 5):
 
 * Chapter 15 (Factors)
+* Pierrette's notes are [here](https://github.com/ohsu-heme/r4ds_study_group/blob/master/r4ds_week44.md)
 
 **Week 43** (week ending Jan 29):
 
