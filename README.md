@@ -9,9 +9,18 @@ Welcome to our *R for Data Science* Study Group!
 * Other learning resources are here: https://github.com/ohsu-heme/r_learning_resources
 
 ---
+
+R4DS study group will be on hiatus after Feb 26. 
+
+**Week 45** (week ending Feb 26):
+
+* Chapter 16 (Dates and times)
+* Pierrette's notes are [here](https://github.com/ohsu-heme/r4ds_study_group/blob/master/r4ds_week45.md)
+
 **Week 45** (week ending Feb 12):
 
 * Chapter 16 (Dates and times)
+* Pierrette's notes are [here](https://github.com/ohsu-heme/r4ds_study_group/blob/master/r4ds_week45.md)
 
 **Week 44** (week ending Feb 5):
 
